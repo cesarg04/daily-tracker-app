@@ -1,7 +1,11 @@
+import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
 export default function Index() {
+
+  const router = useRouter()
+
   return (
     <View
       style={{
@@ -10,8 +14,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Button mode="contained" >
+      <Text>Edit app/index.tsx to edit this screen. rapa t</Text>
+      <Button mode="contained" onPress={() => router.navigate({ pathname: '/(tabs)' })} >
         Hello word
       </Button>
     </View>

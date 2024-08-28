@@ -1,8 +1,11 @@
 import { StatusBar, StyleSheet, View, Text } from "react-native";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 import { IconButton } from "react-native-paper";
+import { useRouter } from "expo-router";
 
 const Header = () => {
+
+  const router = useRouter()
   return (
     <>
       <StatusBar backgroundColor={theme.colors.primary} />
@@ -16,7 +19,7 @@ const Header = () => {
             icon="cog"
             size={30}
             iconColor="#FFFFFF"
-            onPress={() => console.log("Settings icon pressed")}
+            onPress={() => router.navigate({ pathname: '/register'})}
           />
         </View>
       </View>
