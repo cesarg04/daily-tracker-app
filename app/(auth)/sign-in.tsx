@@ -9,15 +9,15 @@ import { FormProvider, useForm } from "react-hook-form";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormControl from "@/shared/components/form-control/FormControl";
-import TextField from "@/shared/components/text-fields/TextField";
-import FormLabel from "@/shared/components/form-label/FormLabel";
-import FormError from "@/shared/components/form-error/FormError";
+import TextField from "@/shared/components/form/form-text-fields/TextField";
+import FormLabel from "@/shared/components/form/form-label/FormLabel";
+import FormError from "@/shared/components/form/form-error/FormError";
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import theme from "@/shared/theme/theme";
 import { useRouter } from "expo-router";
 import { supabase } from "@/shared/lib/supabase";
-import Logo from '@/assets/images/logo/logo-app.svg'
+import Logo from "@/assets/images/logo/logo-app.svg";
+import FormControl from "@/shared/components/form/form-control/FormControl";
 
 const SignIn = () => {
   const router = useRouter();
@@ -27,6 +27,7 @@ const SignIn = () => {
   });
 
   const onSubmit = async (values: SignInFormType) => {
+    console.log("onSubmitted", values);
     const { data, error } = await supabase.auth.signInWithPassword({
       ...values,
     });
@@ -35,7 +36,9 @@ const SignIn = () => {
   return (
     <FormProvider {...formConfig}>
       <View style={styles.container}>
-        <View style={styles.titleContainer}><Logo width={400} height={200} /></View>
+        <View style={styles.titleContainer}>
+          <Logo width={400} height={200} />
+        </View>
         <FormControl name="email">
           <FormLabel>Correo/usuario</FormLabel>
           <TextField />
@@ -47,7 +50,7 @@ const SignIn = () => {
           <TextField type="pass" />
           <FormError />
         </FormControl>
-        <PrimaryButton onPress={() => formConfig.handleSubmit(onSubmit)}>
+        <PrimaryButton onPress={formConfig.handleSubmit(onSubmit)}>
           Iniciar sesion
         </PrimaryButton>
 
@@ -80,9 +83,9 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     // marginBottom: 50,
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
   },
 });

@@ -8,15 +8,16 @@ import {
 } from "@/public/modules/register/util/register-schema.util";
 import { yupResolver } from "@hookform/resolvers/yup";
 import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
-import FormControl from "@/shared/components/form-control/FormControl";
-import FormLabel from "@/shared/components/form-label/FormLabel";
-import TextField from "@/shared/components/text-fields/TextField";
-import FormError from "@/shared/components/form-error/FormError";
+import FormLabel from "@/shared/components/form/form-label/FormLabel";
+import TextField from "@/shared/components/form/form-text-fields/TextField";
+import FormError from "@/shared/components/form/form-error/FormError";
 import { useRouter } from "expo-router";
 import { Button } from "react-native-paper";
 import theme from "@/shared/theme/theme";
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import { supabase } from "@/shared/lib/supabase";
+import Logo from '@/assets/images/logo/logo-app.svg'
+import FormControl from "@/shared/components/form/form-control/FormControl";
 
 const Register = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const Register = () => {
       <KeyboardAvoidingContainer>
         <View style={styles.container}>
           <View>
-            <Text style={styles.title}>Daily Tracker</Text>
+          <Logo width={400} height={200} />
           </View>
 
           <FormControl name="name">
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     gap: 5,
+    marginBottom: 100
   },
   containerTitle: {},
   title: {

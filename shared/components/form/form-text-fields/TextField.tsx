@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import { shadow, TextInput, TextInputProps } from "react-native-paper";
 import { useFormControlContext } from "../form-control/FormControl";
-import theme from "../../theme/theme";
+import theme from "../../../theme/theme";
 
 interface ITextFieldProps extends TextInputProps {
   style?: StyleProp<TextStyle>;
@@ -45,7 +45,7 @@ const TextField = (props: ITextFieldProps) => {
     },
     outlineStyle: {
       borderRadius: 20,
-      borderColor: theme.colors.onSurfaceVariant,
+      // borderColor: theme.colors.onSurfaceVariant,
     },
     placeholderTextColor: "#ccc",
     right: props.right ? (
@@ -53,7 +53,7 @@ const TextField = (props: ITextFieldProps) => {
     ) : props.type === "pass" ? (
       <TextInput.Icon
         icon="eye"
-        color="white"
+        color={!!error ? theme.colors.error : 'black'}
         onPress={() => setIsShowPass(!isShowPass)}
       />
     ) : undefined,

@@ -9,7 +9,7 @@ const AuthLayout = () => {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-        //   backgroundColor: theme.colors.primary,
+          backgroundColor: 'white',
         },
         header: () => <></>
       }}
