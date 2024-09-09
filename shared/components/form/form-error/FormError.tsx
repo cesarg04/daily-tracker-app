@@ -9,9 +9,13 @@ const FormError = (props: IFormErrorProps) => {
   const {
     fieldState: { error },
   } = useFormControlContext();
-
   return (
-    <HelperText type="error" visible={!!error} { ...props } >
+    <HelperText
+      style={{ fontSize: 15, fontWeight: "bold" }}
+      type="error"
+      visible={!!error}
+      {...props}
+    >
       {error?.message}
     </HelperText>
   );

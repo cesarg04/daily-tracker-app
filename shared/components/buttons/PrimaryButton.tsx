@@ -15,6 +15,9 @@ const PrimaryButton = (props: IButtonProps) => {
       fontSize: 22,
       alignItems: "center",
     },
+    contentStyle: {
+      height: '100%'
+    }
   };
 
   return <ButtonPaper {...config} />;
@@ -30,5 +33,6 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     borderRadius: 20,
+    padding: 0
   },
 });

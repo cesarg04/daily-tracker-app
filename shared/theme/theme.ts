@@ -9,7 +9,8 @@ const theme = {
     background: '#F0F0F0', // Gris claro para el fondo de la pantalla
     surface: '#FFFFFF', // Blanco para tarjetas y elementos de la interfaz
     text: '#333333', // Negro suave para el texto principal
-    placeholder: '#666666', // Gris medio para texto secundario
+    placeholder: '#666666', // Gris medio para texto secundario,
+    error: 'red'
   },
 };
 
