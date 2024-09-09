@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import { Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
@@ -15,7 +15,7 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen. rapa t</Text>
-      <Button mode="contained" onPress={() => router.navigate({ pathname: '/(tabs)' })} >
+      <Button mode="contained" onPress={() => router.navigate('/sign-in')} >
         Hello word
       </Button>
     </View>
