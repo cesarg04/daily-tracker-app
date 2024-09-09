@@ -2,7 +2,7 @@
 
 ## These components need de FormControl component as Wrapper.
 
-```javascript
+```typescript
 <FormControl name="name">
   <TextField />
   <FormError />

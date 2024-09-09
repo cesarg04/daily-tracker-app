@@ -14,6 +14,11 @@ interface FormControlProps {
   name: string;
 }
 
+/**
+ * Wrapper component to get form context access.
+ * Example of use in shared\components\form\README.md
+ */
+
 function FormControl({ children, name }: FormControlProps) {
   const controller = useController({ name });
   return (
