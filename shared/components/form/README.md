@@ -9,4 +9,4 @@
 </FormControl>
 ```
 
-**⚠️If you does provide FormControl, the app going fail**
+**⚠️If you don't provide FormControl, the app will fail**

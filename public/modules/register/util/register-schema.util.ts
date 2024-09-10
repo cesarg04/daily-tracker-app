@@ -11,8 +11,15 @@ export const registerFormSchema = Yup.object().shape({
     .min(8, "El nombre de usuario debe tener almenos 8 caracteres.")
     .required("El nombre de usuario es requerido")
     .default(""),
+  phoneNumber: Yup.string()
+    .matches(
+      /^[0-9]{10,15}$/,
+      "El número de teléfono debe contener entre 10 y 15 dígitos."
+    )
+    .required("El número de teléfono es obligatorio")
+    .default(""),
 });
 
-export type RegisterFormType = Yup.InferType<typeof registerFormSchema>;
-export const registerFormDefaultValues: RegisterFormType =
+export type TRegisterFormType = Yup.InferType<typeof registerFormSchema>;
+export const registerFormDefaultValues: TRegisterFormType =
   registerFormSchema.cast({});

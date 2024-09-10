@@ -8,15 +8,22 @@ import {
   ViewStyle,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { shadow, TextInput, TextInputProps } from "react-native-paper";
 import { useFormControlContext } from "../form-control/FormControl";
 import theme from "../../../theme/theme";
+import TextInputMask from "react-native-mask-input";
+import { RenderProps } from "react-native-paper/lib/typescript/components/TextInput/types";
+import { ITextFieldMaskType, MaskType } from "../../mask/MaskType";
+
+
 
 interface ITextFieldProps extends TextInputProps {
   style?: StyleProp<TextStyle>;
   otulineStyles?: StyleProp<ViewStyle>;
   type?: "pass" | "normal";
+  mask?: ITextFieldMaskType['mask']
+
 }
 
 const TextField = (props: ITextFieldProps) => {
@@ -28,7 +35,7 @@ const TextField = (props: ITextFieldProps) => {
     field.onChange(e.nativeEvent.text);
   };
   const [isShowPass, setIsShowPass] = useState(true);
-
+  
   const config: TextInputProps = {
     ...props,
     ...field,
@@ -53,7 +60,7 @@ const TextField = (props: ITextFieldProps) => {
     ) : props.type === "pass" ? (
       <TextInput.Icon
         icon="eye"
-        color={!!error ? theme.colors.error : 'black'}
+        color={!!error ? theme.colors.error : "black"}
         onPress={() => setIsShowPass(!isShowPass)}
       />
     ) : undefined,
@@ -62,6 +69,9 @@ const TextField = (props: ITextFieldProps) => {
       : props.type === "pass"
       ? isShowPass
       : false,
+    render: !!props.mask ? (renderProps) => (
+      <MaskType mask={props.mask!} { ...renderProps } />
+    ) : undefined,
   };
 
   return <TextInput {...config} />;
