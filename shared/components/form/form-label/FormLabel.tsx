@@ -29,7 +29,7 @@ export default FormLabel;
 const styles = StyleSheet.create({
   text: {
     // color: "white",
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 5,
     // color: theme.colors.primary

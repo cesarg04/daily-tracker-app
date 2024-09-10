@@ -6,7 +6,7 @@ import {
 import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Alert } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@/shared/components/form/form-text-fields/TextField";
@@ -27,10 +27,12 @@ const SignIn = () => {
   });
 
   const onSubmit = async (values: SignInFormType) => {
-    console.log("onSubmitted", values);
     const { data, error } = await supabase.auth.signInWithPassword({
       ...values,
     });
+    if (error) {
+      Alert.alert("", error.message);
+    }
   };
 
   return (
@@ -50,7 +52,11 @@ const SignIn = () => {
           <TextField type="pass" />
           <FormError />
         </FormControl>
-        <PrimaryButton onPress={formConfig.handleSubmit(onSubmit)}>
+        <PrimaryButton 
+          onPress={formConfig.handleSubmit(onSubmit)}
+          disabled={formConfig.formState.isSubmitting}
+          loading={formConfig.formState.isSubmitting}
+          >
           Iniciar sesion
         </PrimaryButton>
 

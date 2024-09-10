@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   registerFormDefaultValues,
   registerFormSchema,
-  RegisterFormType,
+  TRegisterFormType,
 } from "@/public/modules/register/util/register-schema.util";
 import { yupResolver } from "@hookform/resolvers/yup";
 import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
@@ -16,35 +16,32 @@ import { Button } from "react-native-paper";
 import theme from "@/shared/theme/theme";
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import { supabase } from "@/shared/lib/supabase";
-import Logo from '@/assets/images/logo/logo-app.svg'
+import Logo from "@/assets/images/logo/logo-app.svg";
 import FormControl from "@/shared/components/form/form-control/FormControl";
+import { registerAdapter } from "@/public/modules/register/adapters/register.adapter";
 
 const Register = () => {
   const router = useRouter();
-  const formConfig = useForm<RegisterFormType>({
+  const formConfig = useForm<TRegisterFormType>({
     defaultValues: registerFormDefaultValues,
     resolver: yupResolver(registerFormSchema),
   });
 
-  const onSubmit = async (values: RegisterFormType) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
-    });
+  const onSubmit = async (values: TRegisterFormType) => {
+    const parsedData = registerAdapter(values)
+    const { data, error } = await supabase.auth.signUp(parsedData);
 
-    // const { data: data1 } = await supabase.channel()
+    console.log(data, error);
+    
 
-    // console.log(data1, error);
-
-    // Alert.alert(JSON.stringify(values))
   };
 
   return (
     <FormProvider {...formConfig}>
       <KeyboardAvoidingContainer>
         <View style={styles.container}>
-          <View>
-          <Logo width={400} height={200} />
+          <View style={styles.containerTitle}>
+            <Logo width={400} height={200} />
           </View>
 
           <FormControl name="name">
@@ -57,6 +54,13 @@ const Register = () => {
             <TextField />
             <FormError />
           </FormControl>
+
+          <FormControl name="phoneNumber">
+            <FormLabel>Numero de telefono</FormLabel>
+            <TextField mask={'phoneNumber'} keyboardType="numeric" />
+            <FormError />
+          </FormControl>
+
           <FormControl name="email">
             <FormLabel>Correo electronico</FormLabel>
             <TextField />
@@ -69,7 +73,11 @@ const Register = () => {
             <FormError />
           </FormControl>
 
-          <PrimaryButton onPress={formConfig.handleSubmit(onSubmit)} disabled={formConfig.formState.isSubmitting} >
+          <PrimaryButton
+            onPress={formConfig.handleSubmit(onSubmit)}
+            disabled={formConfig.formState.isSubmitting}
+            loading={formConfig.formState.isSubmitting}
+          >
             Registrarse
           </PrimaryButton>
 
@@ -94,9 +102,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     gap: 5,
-    marginBottom: 100
+    marginBottom: 100,
   },
-  containerTitle: {},
+  containerTitle: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
+  },
   title: {
     fontSize: 50,
     color: theme.colors.primary,
