@@ -18,25 +18,34 @@ import { useRouter } from "expo-router";
 import { supabase } from "@/shared/lib/supabase";
 import Logo from "@/assets/images/logo/logo-app.svg";
 import FormControl from "@/shared/components/form/form-control/FormControl";
+import { authServices } from "@/shared/services/auth/auth.services";
+import useAuthStore from "@/shared/store/auth.store";
 
 const SignIn = () => {
   const router = useRouter();
+  const { useLogin } = authServices()
+  const { login } = useAuthStore()
   const formConfig = useForm<SignInFormType>({
     defaultValues: signInFormDefaultValues,
     resolver: yupResolver(signInFormSchema),
   });
 
   const onSubmit = async (values: SignInFormType) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      ...values,
-    });
+    const { data: { session }, error } = await useLogin.mutateAsync(values)
+
+    if (session) {
+      login(session?.user, session.access_token);
+      router.replace('/home')
+    }
     if (error) {
-      Alert.alert("", error.message);
+      
     }
   };
 
   return (
     <FormProvider {...formConfig}>
+      <KeyboardAvoidingContainer>
+
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Logo width={400} height={200} />
@@ -66,6 +75,7 @@ const SignIn = () => {
           </Button>
         </View>
       </View>
+      </KeyboardAvoidingContainer>
     </FormProvider>
   );
 };
@@ -74,7 +84,6 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     display: "flex",
     flexDirection: "column",
     flex: 1,

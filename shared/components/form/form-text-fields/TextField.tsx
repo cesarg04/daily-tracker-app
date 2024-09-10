@@ -52,7 +52,8 @@ const TextField = (props: ITextFieldProps) => {
     },
     outlineStyle: {
       borderRadius: 20,
-      // borderColor: theme.colors.onSurfaceVariant,
+      borderColor: '#ccc',
+      borderWidth: 3
     },
     placeholderTextColor: "#ccc",
     right: props.right ? (
