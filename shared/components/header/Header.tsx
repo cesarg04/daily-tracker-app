@@ -8,7 +8,7 @@ const Header = () => {
   const router = useRouter()
   return (
     <>
-      <StatusBar backgroundColor={theme.colors.primary} />
+      <StatusBar backgroundColor={theme.colors.primary}/>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <IconButton icon="calendar" size={30} iconColor="white" />
@@ -32,13 +32,13 @@ export default Header;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 100,
+    height: 70,
     backgroundColor: theme.colors.primary,
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: 30,
+    // paddingTop: 30,
   },
   title: {
     color: "white",

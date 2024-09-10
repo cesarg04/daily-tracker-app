@@ -26,6 +26,7 @@ const Register = () => {
     defaultValues: registerFormDefaultValues,
     resolver: yupResolver(registerFormSchema),
   });
+  
 
   const onSubmit = async (values: TRegisterFormType) => {
     const parsedData = registerAdapter(values)
