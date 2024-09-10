@@ -47,6 +47,30 @@ export type Database = {
           },
         ]
       }
+      monthly_income: {
+        Row: {
+          created_at: string | null
+          id: number
+          month_end: string
+          month_start: string
+          total_income: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          month_end: string
+          month_start: string
+          total_income: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          month_end?: string
+          month_start?: string
+          total_income?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -81,6 +105,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      weekly_income: {
+        Row: {
+          created_at: string | null
+          id: number
+          total_income: number
+          week_end: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          total_income: number
+          week_end: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          total_income?: number
+          week_end?: string
+          week_start?: string
+        }
+        Relationships: []
       }
     }
     Views: {

@@ -1,7 +1,20 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import useModal from '@/shared/hooks/useModal'
+import CustomAlertTemplate from '@/shared/components/alerts/CustomAlertTemplate'
 
 const Home = () => {
+
+  const modal = useModal()
+
+  useEffect(() => {
+    
+    modal.modal({
+      template: <CustomAlertTemplate message='Alert' type='success' />
+    })
+  }, [])
+  
+
   return (
     <View>
       <Text>Home</Text>
@@ -9,4 +22,4 @@ const Home = () => {
   )
 } 
 
-export default Home
+export default Home;

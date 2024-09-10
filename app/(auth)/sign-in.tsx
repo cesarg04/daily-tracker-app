@@ -37,9 +37,6 @@ const SignIn = () => {
       login(session?.user, session.access_token);
       router.replace('/home')
     }
-    if (error) {
-      
-    }
   };
 
   return (

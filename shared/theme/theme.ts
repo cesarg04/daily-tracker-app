@@ -12,6 +12,7 @@ const theme = {
     placeholder: '#666666', // Gris medio para texto secundario,
     error: 'red'
   },
+  
 };
 
 export default theme;
