@@ -19,9 +19,11 @@ import { supabase } from "@/shared/lib/supabase";
 import Logo from "@/assets/images/logo/logo-app.svg";
 import FormControl from "@/shared/components/form/form-control/FormControl";
 import { registerAdapter } from "@/public/modules/register/adapters/register.adapter";
+import useAuthStore from "@/shared/store/auth.store";
 
 const Register = () => {
   const router = useRouter();
+  const { login } = useAuthStore()
   const formConfig = useForm<TRegisterFormType>({
     defaultValues: registerFormDefaultValues,
     resolver: yupResolver(registerFormSchema),
@@ -30,11 +32,11 @@ const Register = () => {
 
   const onSubmit = async (values: TRegisterFormType) => {
     const parsedData = registerAdapter(values)
-    const { data, error } = await supabase.auth.signUp(parsedData);
-
-    console.log(data, error);
-    
-
+    const { data: { session }, error } = await supabase.auth.signUp(parsedData);
+    if (session) {
+      login(session?.user, session.access_token);
+      router.replace('/home')
+    }
   };
 
   return (
