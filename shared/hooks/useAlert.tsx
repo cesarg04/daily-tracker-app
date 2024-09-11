@@ -1,34 +1,35 @@
-// import { useEffect } from "react";
-// import CustomAlertTemplate, {
-//   ICustomAlertProps,
-// } from "../components/alert/CustomAlertTemplate";
-// import useModal from "./useModal";
+import { useEffect } from "react";
 
-// const useAlert = () => {
-//   const { modal, onClose, onConfirm } = useModal();
+import useModal from "./useModal";
+import CustomAlertTemplate, {
+  ICustomAlertTemplateProps,
+} from "../components/alerts/CustomAlertTemplate";
 
-//   const alert = (props: ICustomAlertProps) => {
-//     return modal({
-//       template: (
-//         <CustomAlertTemplate
-//           {...props}
-//           onClose={onClose}
-//           onConfirm={onConfirm}
-//         />
-//       ),
-//       options: {
-//         style: {
-//           minHeight: 220,
-//         },
-//       },
-//     });
-//   };
+const useAlert = () => {
+  const { modal, onClose, onConfirm } = useModal();
 
-//   useEffect(() => {}, []);
+  const alert = (props: ICustomAlertTemplateProps) => {
+    return modal({
+      template: (
+        <CustomAlertTemplate
+          {...props}
+          onClose={onClose}
+          onConfirm={onConfirm}
+        />
+      ),
+      options: {
+        style: {
+          minHeight: 220,
+        },
+      },
+    });
+  };
 
-//   return {
-//     alert,
-//   };
-// };
+  useEffect(() => {}, []);
 
-// export default useAlert;
+  return {
+    alert,
+  };
+};
+
+export default useAlert;

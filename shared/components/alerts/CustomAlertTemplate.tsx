@@ -1,9 +1,9 @@
 import { View, StyleSheet } from "react-native";
 import React, { useEffect, useMemo } from "react";
-import { Dialog, Text } from "react-native-paper";
+import { Button, Dialog, Text } from "react-native-paper";
 import { stylesMap } from "@/shared/constants/alerts/alerts-colors.const";
-
-interface ICustomAlertTemplateProps {
+import theme from "@/shared/theme/theme";
+export interface ICustomAlertTemplateProps {
   type: "success" | "error" | "warning" | "info" | "default";
   message: string;
   declineBtnMessage?: string;
@@ -45,6 +45,27 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
           This is simple dialog
         </Text>
       </Dialog.Content>
+
+      <Dialog.Actions>
+        {!showButtonDecline && (
+          <Button
+            textColor={
+              !showButtonDecline ? stylesType.iconColor : theme.colors.primary
+            }
+            onPress={() => props?.onClose?.()}
+          >
+            {props.declineBtnMessage ? props.declineBtnMessage : "Cancel"}
+          </Button>
+        )}
+        <Button
+          textColor={
+            stylesType.iconColor
+          }
+          onPress={() => props.onConfirm?.()}
+        >
+          {props.confirmBtnMessage ? props.confirmBtnMessage : "Ok"}
+        </Button>
+      </Dialog.Actions>
     </>
   );
 };
