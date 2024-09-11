@@ -50,26 +50,37 @@ export type Database = {
       monthly_income: {
         Row: {
           created_at: string | null
-          id: number
+          id: string
           month_end: string
           month_start: string
           total_income: number
+          user_id: string
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          id?: string
           month_end: string
           month_start: string
           total_income: number
+          user_id: string
         }
         Update: {
           created_at?: string | null
-          id?: number
+          id?: string
           month_end?: string
           month_start?: string
           total_income?: number
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "monthly_income_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -109,33 +120,51 @@ export type Database = {
       weekly_income: {
         Row: {
           created_at: string | null
-          id: number
+          id: string
           total_income: number
+          user_id: string
           week_end: string
           week_start: string
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          id?: string
           total_income: number
+          user_id: string
           week_end: string
           week_start: string
         }
         Update: {
           created_at?: string | null
-          id?: number
+          id?: string
           total_income?: number
+          user_id?: string
           week_end?: string
           week_start?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "weekly_income_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      insert_monthly_income: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      insert_weekly_income: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

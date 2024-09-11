@@ -6,10 +6,13 @@ import { useNavigation, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Button } from "react-native-paper";
+import Logo from "@/assets/images/logo/logo-app.svg";
+import { incomesServices } from "@/shared/services/incomes/incomes.services";
 
 export default function Index() {
   const { useGetStatusSession } = authServices();
   const router = useRouter();
+  const { useInsertMonthlyIncome, useInsertWeeklyIncome } = incomesServices()
 
   const { login } = useAuthStore();
 
@@ -22,6 +25,8 @@ export default function Index() {
       if (session) {
         login(session?.user, session?.access_token);
         router.replace("/home");
+        useInsertMonthlyIncome.mutate()
+        useInsertWeeklyIncome.mutate()
         return;
       }
       router.replace("/sign-in");
@@ -36,13 +41,11 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
       }}
     >
-      <ActivityIndicator
-        animating={true}
-        size={200}
-        color={theme.colors.primary}
-      />
+      <Logo width={400} height={200} />
+      <ActivityIndicator size={100} />
     </View>
   );
 }
