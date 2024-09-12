@@ -3,17 +3,14 @@ import React, { useEffect } from 'react'
 import useModal from '@/shared/hooks/useModal'
 import CustomAlertTemplate from '@/shared/components/alerts/CustomAlertTemplate'
 import useAlert from '@/shared/hooks/useAlert'
+import { useCreateIncome } from '@/private/modules/home/hooks/useCreateInconme'
 
 const Home = () => {
 
-  const alert = useAlert()
+  const { createIncome } = useCreateIncome()
 
   useEffect(() => {
-    
-    alert.alert({
-      message: 'This is the message',
-      type: 'error',
-    })
+    createIncome()
   }, [])
   
 

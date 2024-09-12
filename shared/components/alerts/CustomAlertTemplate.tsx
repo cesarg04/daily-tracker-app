@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Dialog, Text } from "react-native-paper";
 import { stylesMap } from "@/shared/constants/alerts/alerts-colors.const";
 import theme from "@/shared/theme/theme";
@@ -22,6 +22,8 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
       props.type === "warning"
     );
   }, [props.type]);
+
+  
 
   useEffect(() => {}, []);
 
