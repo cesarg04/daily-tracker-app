@@ -2,8 +2,8 @@ import Header from "@/shared/components/header/Header";
 import theme from "@/shared/theme/theme";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-
 import Ionicons from "@expo/vector-icons/Ionicons";
+
 
 export default function TabLayout() {
   return (
@@ -13,7 +13,8 @@ export default function TabLayout() {
         header: () => <Header />,
         tabBarStyle: {
           backgroundColor: theme.colors.primary,
-          height: 70,
+          height: 65,
+          paddingBottom: 5,
         },
         tabBarLabelStyle: {
           fontSize: 15,
@@ -25,8 +26,12 @@ export default function TabLayout() {
         name="home"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home" size={30} color={"white"} />
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name="home"
+              size={size}
+              color={focused ? "white" : "#ccc"}
+            />
           ),
         }}
       />
@@ -34,8 +39,12 @@ export default function TabLayout() {
         name="monthly"
         options={{
           title: "Monthly",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="calendar-clear" size={30} color={"white"} />
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name="calendar-clear"
+              size={size}
+              color={focused ? "white" : "#ccc"}
+            />
           ),
         }}
       />
@@ -44,11 +53,11 @@ export default function TabLayout() {
         name="weekly"
         options={{
           title: "Monthly",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
               name="file-tray-stacked-sharp"
-              size={30}
-              color={"white"}
+              size={size}
+              color={focused ? "white" : "#ccc"}
             />
           ),
         }}

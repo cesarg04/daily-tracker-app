@@ -70,9 +70,9 @@ const TextField = (props: ITextFieldProps) => {
       : props.type === "pass"
       ? isShowPass
       : false,
-    render: !!props.mask ? (renderProps) => (
-      <MaskType mask={props.mask!} { ...renderProps } />
-    ) : undefined,
+    // render: !!props.mask ? (renderProps) => (
+    //   <MaskType mask={props.mask!} { ...renderProps } />
+    // ) : undefined,
   };
 
   return <TextInput {...config} />;

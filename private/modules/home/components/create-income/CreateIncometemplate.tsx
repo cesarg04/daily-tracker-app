@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
@@ -11,6 +11,8 @@ import FormControl from "@/shared/components/form/form-control/FormControl";
 import TextField from "@/shared/components/form/form-text-fields/TextField";
 import FormError from "@/shared/components/form/form-error/FormError";
 import FormLabel from "@/shared/components/form/form-label/FormLabel";
+import { fontFamilies } from "@/shared/constants/fonts/fonts.conts";
+import { TextInput } from "react-native-paper";
 
 const CreateIncomeTemplate = () => {
   const formConfig = useForm<TCreateIncomeFormType>({
@@ -30,7 +32,8 @@ const CreateIncomeTemplate = () => {
 
         <FormControl name="amount">
             <FormLabel>Nombre del ingreso</FormLabel>
-            <TextField keyboardType="numeric" mask="money" />
+            {/* <TextField  /> */}
+            <TextInput/>
             <FormError/>
 
         </FormControl>
@@ -53,6 +56,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 50,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: 'MPLUSRounded1c_300Light'
   }
 });
