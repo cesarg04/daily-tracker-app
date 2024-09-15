@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@dev-plugins/react-query": "^0.0.7",
+    "@expo-google-fonts/asul": "^0.2.3",
+    "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/m-plus-rounded-1c": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
     "@hookform/resolvers": "^3.9.0",

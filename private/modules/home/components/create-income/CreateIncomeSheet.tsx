@@ -4,36 +4,45 @@ import ActionSheet, {
   ActionSheetRef,
   SheetProps,
 } from "react-native-actions-sheet";
-import { IconButton } from "react-native-paper";
+import { Button, IconButton } from "react-native-paper";
 import XIcon from "@/assets/icons/circle-x.svg";
 import theme from "@/shared/theme/theme";
-import { fontFamilies } from "@/shared/constants/fonts/fonts.conts";
-import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
 import { FormProvider, useForm } from "react-hook-form";
-import { createIncomeFormDefaultValues, createIncomeSchema, TCreateIncomeFormType } from "../../util/create-income-schema.util";
+import {
+  createIncomeFormDefaultValues,
+  createIncomeSchema,
+  TCreateIncomeFormType,
+} from "../../util/create-income-schema.util";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormControl from "@/shared/components/form/form-control/FormControl";
 import TextField from "@/shared/components/form/form-text-fields/TextField";
-import { Text } from 'react-native-paper'
+import { Text } from "react-native-paper";
+import FormError from "@/shared/components/form/form-error/FormError";
+import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
+import { incomesServices } from "@/shared/services/incomes/incomes.services";
+import useSnackbar from "@/shared/hooks/useSnackbar";
 
 const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
+  const { useInsertIncome } = incomesServices()
+  useEffect(() => {}, []);
 
-  useEffect(() => {
-    console.log(props.payload);
-    if (actionRef.current?.ev.unsubscribe) {
-    }
-  }, []);
-
-  const handleClose = (key: string = "cancel") => {
-    props.payload;
-  };
 
   const formConfig = useForm<TCreateIncomeFormType>({
     defaultValues: createIncomeFormDefaultValues,
     resolver: yupResolver(createIncomeSchema),
+    mode: "onTouched",
   });
 
+  const onSubmit = async (values: TCreateIncomeFormType) => {
+    const { data, error, status } = await useInsertIncome.mutateAsync(values)
+
+    if (status === 201) {
+      formConfig.reset();
+      actionRef.current
+    }
+    console.log(data, error,status );
+  };
 
   return (
     <ActionSheet ref={actionRef}>
@@ -41,15 +50,32 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
         <View style={styles.header}>
           <Text style={styles.title}>Crear gasto</Text>
           <IconButton
-            icon={() => <XIcon width={30} height={30} color={theme.colors.primary} />}
+            icon={() => (
+              <XIcon width={30} height={30} color={theme.colors.text} />
+            )}
+            onPress={() => actionRef.current?.hide()}
           />
         </View>
-          <FormProvider { ...formConfig } >
-            <FormControl name="amount" >
-              <TextField mask="money" />
+        <View style={styles.containerForm}>
+          <FormProvider {...formConfig}>
+            <FormControl name="amount">
+              <TextField mask="money" placeholder="Monto" />
+              <FormError />
             </FormControl>
+
+            <FormControl name="description">
+              <TextField multiline placeholder="Descripcion" />
+              <FormError />
+            </FormControl>
+            <PrimaryButton
+              onPress={formConfig.handleSubmit(onSubmit)}
+              loading={formConfig.formState.isSubmitting}
+              disabled={formConfig.formState.isSubmitting}
+            >
+              Insertar
+            </PrimaryButton>
           </FormProvider>
-        {/* <Text>SheetIos</Text> */}
+        </View>
       </View>
     </ActionSheet>
   );
@@ -59,20 +85,26 @@ export default CreateIncomeSheet;
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
-    paddingHorizontal: 10,
-    paddingVertical: 5
+    // height: 300,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
   header: {
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     fontSize: 25,
-    fontFamily: 'MplusMedium',
-    // fontWeight: 'bold'
+    fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
+  },
+  containerForm: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    display: "flex",
+    flexDirection: "column",
   },
 });

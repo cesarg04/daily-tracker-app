@@ -1,6 +1,6 @@
 import useSupabase from "@/shared/hooks/useSupabase";
 import { authServices } from "@/shared/services/auth/auth.services";
-import useAuthStore from "@/shared/store/auth.store";
+import useAuthStore from "@/shared/store/auth/auth.store";
 import theme from "@/shared/theme/theme";
 import { useNavigation, useRouter } from "expo-router";
 import { useEffect } from "react";
@@ -27,9 +27,12 @@ export default function Index() {
         router.replace("/home");
         useInsertMonthlyIncome.mutate()
         useInsertWeeklyIncome.mutate()
-        return;
       }
-      router.replace("/sign-in");
+
+      if (error) {
+        router.replace("/sign-in");
+      }
+
     };
 
     getStatus();

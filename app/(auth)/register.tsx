@@ -19,7 +19,7 @@ import { supabase } from "@/shared/lib/supabase";
 import Logo from "@/assets/images/logo/logo-app.svg";
 import FormControl from "@/shared/components/form/form-control/FormControl";
 import { registerAdapter } from "@/public/modules/register/adapters/register.adapter";
-import useAuthStore from "@/shared/store/auth.store";
+import useAuthStore from "@/shared/store/auth/auth.store";
 
 const Register = () => {
   const router = useRouter();

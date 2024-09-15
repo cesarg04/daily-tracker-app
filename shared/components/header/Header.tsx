@@ -2,6 +2,7 @@ import { StatusBar, StyleSheet, View, Text } from "react-native";
 import theme from "../../theme/theme";
 import { IconButton } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { fontFamilies } from "@/shared/constants/fonts/fonts.conts";
 
 const Header = () => {
 
@@ -49,5 +50,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    fontFamily: 'Inter_900Black'
   },
 });

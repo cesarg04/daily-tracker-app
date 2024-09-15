@@ -14,7 +14,7 @@ const Home = () => {
   useEffect(() => {
     // createIncome()
     SheetManager.show('create-income-sheet').then(res => {
-      console.log(res)
+      // console.log(res)
     });
   }, [])
   
