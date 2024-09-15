@@ -3,6 +3,7 @@ import { Text } from "react-native-paper";
 import { Platform, StyleSheet } from "react-native";
 import theme from "@/shared/theme/theme";
 import { useFormControlContext } from "../form-control/FormControl";
+import { fontFamilies } from "@/shared/constants/fonts/fonts.conts";
 
 interface IFormLabelProps {
   children: React.ReactNode;
@@ -33,5 +34,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
     // color: theme.colors.primary
+    // fontFamily: fontFamilies.
   },
 });
