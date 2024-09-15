@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { RenderProps } from "react-native-paper/lib/typescript/components/TextInput/types";
 import TextInputMask from "react-native-mask-input";
 import CurrencyInput, { CurrencyInputProps } from "react-native-currency-input";
@@ -52,21 +52,27 @@ export const MaskType = forwardRef<any, MaskTypeProps>(
 const MaskedMoney = (props: IMoneyConfigProps) => {
   const [values, setValues] = useState<number | null>(null);
 
+  useEffect(() => {
+    props.onChangeText?.('2323232')
+  }, [])
+  
+
   const moneyMaskConfig: CurrencyInputProps = {
     ...props,
-    prefix: "RD$",
+    prefix: "$ ",
     delimiter: ",",
     separator: ",",
     precision: 0,
     minValue: 0,
     signPosition: "afterPrefix",
     onChangeValue(value) {
+      props.onChangeText?.(value?.toString() ?? '')
       setValues(value);
     },
-    onChangeText: (text) => {
-      props.onChangeText?.(text);
-    },
     value: values,
+    onChangeText(text) {
+      
+    },
   };
 
   return <CurrencyInput {...moneyMaskConfig} />;

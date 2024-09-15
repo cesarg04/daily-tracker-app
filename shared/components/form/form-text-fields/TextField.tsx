@@ -31,8 +31,9 @@ const TextField = (props: ITextFieldProps) => {
     field,
     fieldState: { error },
   } = useFormControlContext();
-  const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    field.onChange(e.nativeEvent.text);
+  const handleChange = (e: string | number) => {
+    console.log('onChange', e)
+    field.onChange(e);
   };
   const [isShowPass, setIsShowPass] = useState(true);
   
@@ -41,7 +42,7 @@ const TextField = (props: ITextFieldProps) => {
     ...field,
     mode: "outlined",
     error: !!error?.message,
-    onChange: handleChange,
+    onChangeText: handleChange,
     ref: field.ref,
     onBlur: field.onBlur,
     textColor: "black",
@@ -49,6 +50,7 @@ const TextField = (props: ITextFieldProps) => {
       backgroundColor: theme.colors.surface,
       height: 70,
       fontSize: 20,
+      fontWeight: '700',
     },
     outlineStyle: {
       borderRadius: 20,

@@ -8,46 +8,39 @@ import { useReactQueryDevTools } from "@dev-plugins/react-query";
 import ModalContext from "@/shared/contexts/modal/ModalContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import "@/shared/components/sheet/Sheets";
-import {
-  MPLUSRounded1c_100Thin,
-  MPLUSRounded1c_300Light,
-  MPLUSRounded1c_400Regular,
-  MPLUSRounded1c_500Medium,
-  MPLUSRounded1c_800ExtraBold,
-  MPLUSRounded1c_900Black,
-  useFonts,
-} from "@expo-google-fonts/m-plus-rounded-1c";
+// import {
+//   useFonts,
+//   MPLUSRounded1c_100Thin,
+//   MPLUSRounded1c_300Light,
+//   MPLUSRounded1c_400Regular,
+//   MPLUSRounded1c_500Medium,
+//   MPLUSRounded1c_700Bold,
+//   MPLUSRounded1c_800ExtraBold,
+//   MPLUSRounded1c_900Black,
+// } from "@expo-google-fonts/m-plus-rounded-1c";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SheetProvider } from "react-native-actions-sheet";
-// import { useFonts } from 'expo-font';
-import * as Font from "expo-font";
-import AppLoading from 'expo-app-loading';
+// import {  useFonts, Inter_900Black, Inter_600SemiBold } from '@expo-google-fonts/inter';
+import { useFonts, Asul_400Regular, Asul_700Bold } from '@expo-google-fonts/asul';
 
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
   useReactQueryDevTools(queryClient);
   let [loaded, error] = useFonts({
-    MPLUSRounded1c_100Thin,
-    MPLUSRounded1c_300Light,
-    MPLUSRounded1c_400Regular,
-    "MplusMedium": MPLUSRounded1c_500Medium,
-    MPLUSRounded1c_800ExtraBold,
-    MPLUSRounded1c_900Black,
+    Asul_400Regular,
+    Asul_700Bold
   });
 
   useEffect(() => {
-    console.log("loader", loaded);
-    console.log("error", error);
-
     if (loaded || error) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, error]);
 
-  if (!loaded) {
-    return <AppLoading/>;
+  if (!loaded && !error) {
+    return null;
   }
   return (
     <QueryClientProvider client={queryClient}>
@@ -61,7 +54,7 @@ export default function RootLayout() {
                 <Ionicons name={name as any} {...props} />
               ),
             }}
-          >
+            >
             <ModalContext>
               <Stack
                 screenOptions={{

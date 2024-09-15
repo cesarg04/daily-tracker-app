@@ -1,10 +1,9 @@
 import * as Yup from "yup";
 
 export const createIncomeSchema = Yup.object().shape({
-  amount: Yup.number()
+  amount: Yup.string()
     .required("El monto es requerido")
-    .nullable()
-    .default(null),
+    .default(''),
   description: Yup.string()
     .required("La descripcion del ingreso es requerida")
     .default(""),
