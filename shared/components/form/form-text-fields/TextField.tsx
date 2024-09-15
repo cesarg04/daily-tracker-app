@@ -61,7 +61,7 @@ const TextField = (props: ITextFieldProps) => {
     ) : props.type === "pass" ? (
       <TextInput.Icon
         icon="eye"
-        color={!!error ? theme.colors.error : "black"}
+        color={!!error ? theme.colors.error : "#ccc"}
         onPress={() => setIsShowPass(!isShowPass)}
       />
     ) : undefined,
@@ -70,9 +70,9 @@ const TextField = (props: ITextFieldProps) => {
       : props.type === "pass"
       ? isShowPass
       : false,
-    // render: !!props.mask ? (renderProps) => (
-    //   <MaskType mask={props.mask!} { ...renderProps } />
-    // ) : undefined,
+    render: !!props.mask ? (renderProps) => (
+      <MaskType mask={props.mask!} { ...renderProps } />
+    ) : undefined,
   };
 
   return <TextInput {...config} />;

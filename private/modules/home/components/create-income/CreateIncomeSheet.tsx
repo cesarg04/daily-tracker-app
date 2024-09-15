@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import React, { useEffect, useRef } from "react";
 import ActionSheet, {
   ActionSheetRef,
@@ -14,6 +14,7 @@ import { createIncomeFormDefaultValues, createIncomeSchema, TCreateIncomeFormTyp
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormControl from "@/shared/components/form/form-control/FormControl";
 import TextField from "@/shared/components/form/form-text-fields/TextField";
+import { Text } from 'react-native-paper'
 
 const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
@@ -43,13 +44,11 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
             icon={() => <XIcon width={30} height={30} color={theme.colors.primary} />}
           />
         </View>
-        <KeyboardAvoidingContainer>
           <FormProvider { ...formConfig } >
             <FormControl name="amount" >
-              <TextField/>
+              <TextField mask="money" />
             </FormControl>
           </FormProvider>
-        </KeyboardAvoidingContainer>
         {/* <Text>SheetIos</Text> */}
       </View>
     </ActionSheet>
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontFamily: fontFamilies.Medium,
+    fontFamily: 'MplusMedium',
     // fontWeight: 'bold'
   },
 });
