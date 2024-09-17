@@ -13,18 +13,23 @@ import {
   IModalContextProviderProps,
   IModalFunctionOptions,
   IModalReturn,
+  ISnackBarRef,
 } from "./modal-context.types";
 import React from "react";
 import { Dialog, Modal, Portal, Text } from "react-native-paper";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Customsnackbar from "@/shared/components/snackbar/snackbar";
 
 export const ModalsContext = createContext<IModalReturn | undefined>(undefined);
 
 const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [snackBarIsOpen, setSnackBarIsOpen] = useState(true);
   const promiseRef =
     useRef<(value: IEventModal | PromiseLike<IEventModal>) => void>();
   const metaRef = useRef<IMetaRef>();
+
+  const snackbarRef = useRef<ISnackBarRef>();
 
   const modal = useCallback((p: IModalFunctionOptions) => {
     metaRef.current = p;
@@ -54,7 +59,28 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
       promiseRef.current({ type: EModalEventType.CONFIRM, value });
   }, []);
 
-  useEffect(() => {}, []);
+  const snackBar = useCallback((e: ISnackBarRef) => {
+    snackbarRef.current = e;
+
+    if (snackbarRef.current) {
+
+      setTimeout(() => {
+        setSnackBarIsOpen(true);
+        console.log('snack bar running');
+        console.log(snackbarRef.current)
+      }, 1000);
+
+    }
+
+  }, []);
+
+  const onCLoseSnack = () => {
+    setSnackBarIsOpen(false);
+  };
+
+  useEffect(() => {
+
+  }, [snackbarRef]);
 
   return (
     <ModalsContext.Provider
@@ -63,8 +89,28 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
         onClose,
         onConfirm,
         onDismiss,
+        snackBar,
       }}
     >
+      <View style={{
+        flex: 1,
+        justifyContent: 'space-between'
+      }} >
+
+      {snackBarIsOpen && (
+        <Customsnackbar
+          onDismiss={onCLoseSnack}
+          visible={true}
+          action={{
+            label: snackbarRef.current?.options?.actionLabel ?? "",
+            onPress: snackbarRef.current?.options?.onPress,
+          }}
+        >
+          {/* {snackbarRef.current?.message} */}
+          Hola mundo cruel
+        </Customsnackbar>
+      )}
+
       {children}
       {isOpen && (
         <Portal>
@@ -74,6 +120,7 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
           </Dialog>
         </Portal>
       )}
+      </View>
     </ModalsContext.Provider>
   );
 };

@@ -2,30 +2,22 @@ import { useState } from "react";
 import Snackbar, {
   ICustomSnackBarProps,
 } from "../components/snackbar/snackbar"; // Importa el componente Snackbar
+import { ISnackBarRef } from "../contexts/modal/modal-context.types";
+import useModal from "./useModal";
 
-interface IUseSnackbarSettins extends ICustomSnackBarProps {
-  duration?: number;
-}
+interface IUseSnackbarSettins extends ISnackBarRef {}
 
-const useSnackbar = (options: IUseSnackbarSettins) => {
-  const [isVisible, setIsVisible] = useState(false);
+const useSnackbar = () => {
+  const { snackBar: _snackBar } = useModal();
 
-  const onToggleVisible = () => {
-    setIsVisible(true); // Mostrar el Snackbar
-
-    setTimeout(() => {
-      setIsVisible(false); // Ocultar el Snackbar después de la duración
-    }, options.duration ?? 3000);
+  const snackBar = (props: ISnackBarRef) => {
+    return _snackBar({
+      ...props,
+    });
   };
 
-  // Retornar tanto la función como el componente SnackBar
-  const SnackBarComponent = isVisible ? (
-    <Snackbar {...options} visible={isVisible} />
-  ) : null; // Si no es visible, retorna null
-
   return {
-    onToggleVisible,
-    SnackBarComponent,
+    snackBar,
   };
 };
 

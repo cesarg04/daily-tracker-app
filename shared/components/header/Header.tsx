@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    fontFamily: 'Inter_900Black'
+    // fontFamily: 'Inter_900Black'
   },
 });

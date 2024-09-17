@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { StyleProp, TextStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface IOptionsModal {
   style?: StyleProp<TextStyle>;
@@ -37,8 +37,22 @@ export interface IModalReturn {
   onDismiss: (value?: IEventModal["value"]) => void;
   onConfirm: (value?: IEventModal["value"]) => void;
   modal: (p: IModalFunctionOptions) => Promise<IEventModal>;
+  snackBar: (p: ISnackBarRef) => void;
 }
 
 export interface IModalContextProviderProps {
   children: React.ReactNode;
+}
+
+
+// SnackBar
+
+export interface ISnackBarRef {
+  message: string;
+  options?: {
+    duration?: number;
+    styles?: StyleProp<ViewStyle>,
+    actionLabel?: string;
+    onPress?: () => void; 
+  }
 }
