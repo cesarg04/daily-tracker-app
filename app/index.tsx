@@ -25,8 +25,8 @@ export default function Index() {
       if (session) {
         login(session?.user, session?.access_token);
         router.replace("/home");
-        useInsertMonthlyIncome.mutate()
-        useInsertWeeklyIncome.mutate()
+        // useInsertMonthlyIncome.mutate()
+        // useInsertWeeklyIncome.mutate()
       }
 
       if (error) {
