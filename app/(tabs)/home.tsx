@@ -11,10 +11,7 @@ const Home = () => {
 
   const { data, isLoading } = useGetIncomes({});
 
-  useEffect(() => {
-    console.log(data?.data?.map((item) => item.description).join(" - "));
-  }, [data]);
-
+  useEffect(() => {}, []);
 
   if (isLoading && !data) {
     return (

@@ -1,13 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useMemo } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { IPureData } from "@/shared/services/incomes/adapters/get-incomes.adapter";
 import { Avatar, Tooltip } from "react-native-paper";
+import { SheetManager } from "react-native-actions-sheet";
+import Popover from "react-native-popover-view";
+import theme from "@/shared/theme/theme";
+import EditIcon from "@/assets/icons/edit.svg";
+import TrashIcon from "@/assets/icons/trash.svg";
+import { incomesServices } from "@/shared/services/incomes/incomes.services";
 
 interface ITreansactionItemsProps {
   item: IPureData;
 }
 
 const TreansactionItems = (props: ITreansactionItemsProps) => {
+  const { useDeleteById } = incomesServices();
+
+  const initialLetter = useMemo(
+    () => props.item.description.charAt(0).toUpperCase(),
+    [props.item.description]
+  );
   const truncateText = useCallback(
     (text: string, maxLength: number = 6): string => {
       if (text.length > maxLength) {
@@ -18,19 +30,64 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
     []
   );
 
-  const initialLetter = useMemo(
-    () => props.item.description.charAt(0).toUpperCase(),
-    [props.item.description]
-  );
+  const onSelectIncome = () => {
+    SheetManager.show("detail-income-sheet", {
+      payload: { id: props.item.id },
+    });
+  };
 
+  const items = [
+    {
+      label: "Editar",
+      icon: <EditIcon width={35} height={35} color={theme.colors.primary} />,
+      onPress: () => {},
+    },
+    {
+      label: "Eliminar",
+      icon: <TrashIcon width={35} height={35} color={theme.colors.error} />,
+      onPress: () => {
+        useDeleteById.mutate(props.item.id);
+      },
+    },
+  ];
+
+  useEffect(() => {}, []);
   return (
-    <View style={styles.container}>
-      <Avatar.Text size={50} label={initialLetter} />
-      <Tooltip title={props.item.description}>
-        <Text style={styles.description}>{props.item.description}</Text>
-      </Tooltip>
-      <Text style={styles.amount}>{truncateText(props.item.amount)}</Text>
-    </View>
+    <Popover
+      from={(sourcesRef, showPopover) => (
+        <TouchableOpacity
+          onPress={onSelectIncome}
+          style={{ flex: 1 }}
+          onLongPress={showPopover}
+        >
+          <View style={styles.container}>
+            <Avatar.Text size={50} label={initialLetter} />
+            <Tooltip title={props.item.description}>
+              <Text style={styles.description}>{props.item.description}</Text>
+            </Tooltip>
+            <Tooltip title={props.item.amount}>
+              <Text style={styles.amount}>
+                {truncateText(props.item.amount)}
+              </Text>
+            </Tooltip>
+          </View>
+        </TouchableOpacity>
+      )}
+      popoverStyle={{
+        borderRadius: 10,
+      }}
+    >
+      <View style={popoverStyles.container}>
+        {items.map((item) => (
+          <TouchableOpacity onPress={item.onPress}>
+            <View key={item.label} style={popoverStyles.item}>
+              {item.icon}
+              <Text style={popoverStyles.itemText}>{item.label}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </Popover>
   );
 };
 
@@ -43,7 +100,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     display: "flex",
     justifyContent: "space-between",
-    // alignContent: 'center',
     alignItems: "center",
     flexDirection: "row",
   },
@@ -54,5 +110,28 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+});
+
+const popoverStyles = StyleSheet.create({
+  item: {
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+    gap: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: "#ccc",
+    paddingVertical: 10,
+    padding: 10,
+  },
+  itemText: {
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  container: {
+    width: 200,
+    borderRadius: 20,
+    display: "flex",
   },
 });

@@ -3,9 +3,9 @@ import { INCOMES_KEYS } from "./keys/incomes.keys";
 import useSupabase from "@/shared/hooks/useSupabase";
 import { TCreateIncomeFormType } from "@/private/modules/home/util/create-income-schema.util";
 import useAuthStore from "@/shared/store/auth/auth.store";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-const today = dayjs().format('YYYY-MM-DD');
+const today = dayjs().format("YYYY-MM-DD");
 export const incomesServices = () => {
   const supabase = useSupabase();
   const { user } = useAuthStore();
@@ -58,17 +58,64 @@ export const incomesServices = () => {
           .select("*")
           .eq("user_id", user?.id!)
           .eq("date", today)
-          // .order("", { ascending: true })
+          .order("created_at", { ascending: false });
       },
       staleTime: 5000,
       enabled: user?.id !== undefined,
     });
   };
 
+  const useGetIncomeById = (id?: string) => {
+    return useQuery({
+      queryKey: [INCOMES_KEYS.GET_INCOME_BY_ID, id],
+      queryFn: async () => {
+        return await supabase
+          .from("daily_income")
+          .select("*")
+          .eq("user_id", user?.id!)
+          .eq("id", id!)
+          .single();
+      },
+      enabled: user?.id !== undefined && id !== undefined,
+    });
+  };
+
+  const useDeleteById = useMutation({
+    mutationKey: [INCOMES_KEYS.DELETE_INCOME],
+    mutationFn: async (id: string) => {
+      return await supabase
+        .from("daily_income")
+        .delete() // Método delete
+        .eq("id", id) // Filtra por el id
+        .eq("user_id", user?.id!);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [INCOMES_KEYS.GET_INCOMES] });
+    },
+  });
+
+  const useUpdateIncomes = useMutation({
+    mutationKey: [INCOMES_KEYS.UPDATE_INCOME],
+    // @ts-ignore
+    mutationFn: async (id: string, data: TCreateIncomeFormType) => {
+      return await supabase
+        .from("daily_income")
+        .update({
+          ...data,
+          amount: data.amount ? Number(data.amount) : undefined
+        })
+        .eq("id", id)
+        .eq("user_id", user?.id!);
+    },
+  });
+
   return {
     useInsertMonthlyIncome,
     useInsertWeeklyIncome,
     useInsertIncome,
     useGetIncomes,
+    useGetIncomeById,
+    useDeleteById,
+    useUpdateIncomes
   };
 };
