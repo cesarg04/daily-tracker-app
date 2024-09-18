@@ -26,7 +26,7 @@ const CreateIncomeTemplate = () => {
 
         <View>
             <Text style={styles.title} >
-                Crear Gasto
+                Agregar Ingreso
             </Text>
         </View>
 

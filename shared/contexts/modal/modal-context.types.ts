@@ -49,6 +49,7 @@ export interface IModalContextProviderProps {
 
 export interface ISnackBarRef {
   message: string;
+  type: "success" | "error" | "warning" | "info" | "default";
   options?: {
     duration?: number;
     styles?: StyleProp<ViewStyle>,

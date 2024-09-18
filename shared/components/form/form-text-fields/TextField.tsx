@@ -32,7 +32,6 @@ const TextField = (props: ITextFieldProps) => {
     fieldState: { error },
   } = useFormControlContext();
   const handleChange = (e: string | number) => {
-    console.log('onChange', e)
     field.onChange(e);
   };
   const [isShowPass, setIsShowPass] = useState(true);

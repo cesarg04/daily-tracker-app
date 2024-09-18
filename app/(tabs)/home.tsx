@@ -1,44 +1,59 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
-import useModal from '@/shared/hooks/useModal'
-import CustomAlertTemplate from '@/shared/components/alerts/CustomAlertTemplate'
-import useAlert from '@/shared/hooks/useAlert'
-import { useCreateIncome } from '@/private/modules/home/hooks/useCreateInconme'
-import CreateIcomeSheet from '@/private/modules/home/components/create-income/CreateIncomeSheet'
-import { SheetManager } from 'react-native-actions-sheet/dist/src/sheetmanager'
-import useSnackbar from '@/shared/hooks/useSnackbar'
-import { Snackbar } from 'react-native-paper'
+import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { incomesServices } from "@/shared/services/incomes/incomes.services";
+import { getIncomesAdapter } from "@/shared/services/incomes/adapters/get-incomes.adapter";
+import Totalncomes from "@/shared/components/incomes/Totalncomes";
+import Transactions from "@/shared/components/incomes/Transactions";
+import { ActivityIndicator } from "react-native-paper";
 
 const Home = () => {
+  const { useGetIncomes } = incomesServices();
 
-  const { createIncome } = useCreateIncome()
-  const { snackBar } = useSnackbar()
+  const { data, isLoading } = useGetIncomes({});
 
   useEffect(() => {
-    // createIncome()
-    // SheetManager.show('create-income-sheet').then(res => {
-    //   // console.log(res)
-    // });
+    console.log(data?.data?.map((item) => item.description).join(" - "));
+  }, [data]);
 
-    snackBar({
-      message: 'This is my first snack bar.'
-    })
 
-  }, [])
-  
+  if (isLoading && !data) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  const adapted = getIncomesAdapter(data!);
 
   return (
-    <View style={styles.container} >
-      <Text>Home</Text>
+    <View style={styles.container}>
+      <Totalncomes
+        amount={adapted.totalIncomes}
+        title="Ingresos totales"
+        date={adapted.totalDates}
+      />
+      <Transactions data={adapted.pureData} />
     </View>
-  )
-} 
+  );
+};
 
 export default Home;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: "space-between",
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
   },
 });
