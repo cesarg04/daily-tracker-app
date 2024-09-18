@@ -22,7 +22,11 @@ import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SheetProvider } from "react-native-actions-sheet";
 // import {  useFonts, Inter_900Black, Inter_600SemiBold } from '@expo-google-fonts/inter';
-import { useFonts, Asul_400Regular, Asul_700Bold } from '@expo-google-fonts/asul';
+import {
+  useFonts,
+  Asul_400Regular,
+  Asul_700Bold,
+} from "@expo-google-fonts/asul";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +34,7 @@ export default function RootLayout() {
   useReactQueryDevTools(queryClient);
   let [loaded, error] = useFonts({
     Asul_400Regular,
-    Asul_700Bold
+    Asul_700Bold,
   });
 
   useEffect(() => {
@@ -45,20 +49,19 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={{ flex: 1 }}>
-        <SheetProvider>
-          <StatusBar backgroundColor={theme.colors.primary} />
-          <PaperProvider
-            theme={theme}
-            settings={{
-              icon: ({ name, ...props }) => (
-                <Ionicons name={name as any} {...props} />
-              ),
-            }}
-            >
-            <ModalContext>
+        <StatusBar backgroundColor={theme.colors.primary} />
+        <PaperProvider
+          theme={theme}
+          settings={{
+            icon: ({ name, ...props }) => (
+              <Ionicons name={name as any} {...props} />
+            ),
+          }}
+        >
+          <ModalContext>
+            <SheetProvider>
               <Stack
                 screenOptions={{
-                  // header: () => <Header/>
                   headerShown: false,
                 }}
                 initialRouteName="home"
@@ -66,9 +69,9 @@ export default function RootLayout() {
                 <Stack.Screen name="index" />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               </Stack>
-            </ModalContext>
-          </PaperProvider>
-        </SheetProvider>
+            </SheetProvider>
+          </ModalContext>
+        </PaperProvider>
       </SafeAreaView>
     </QueryClientProvider>
   );

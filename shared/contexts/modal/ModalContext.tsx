@@ -16,15 +16,17 @@ import {
   ISnackBarRef,
 } from "./modal-context.types";
 import React from "react";
-import { Dialog, Modal, Portal, Text } from "react-native-paper";
+import { Dialog, IconButton, Modal, Portal, Text } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import Customsnackbar from "@/shared/components/snackbar/snackbar";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import theme from "@/shared/theme/theme";
 
 export const ModalsContext = createContext<IModalReturn | undefined>(undefined);
 
 const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [snackBarIsOpen, setSnackBarIsOpen] = useState(true);
+  const [snackBarIsOpen, setSnackBarIsOpen] = useState(false);
   const promiseRef =
     useRef<(value: IEventModal | PromiseLike<IEventModal>) => void>();
   const metaRef = useRef<IMetaRef>();
@@ -63,24 +65,17 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
     snackbarRef.current = e;
 
     if (snackbarRef.current) {
-
       setTimeout(() => {
         setSnackBarIsOpen(true);
-        console.log('snack bar running');
-        console.log(snackbarRef.current)
       }, 1000);
-
     }
-
   }, []);
 
   const onCLoseSnack = () => {
     setSnackBarIsOpen(false);
   };
 
-  useEffect(() => {
-
-  }, [snackbarRef]);
+  useEffect(() => {}, [snackbarRef]);
 
   return (
     <ModalsContext.Provider
@@ -92,34 +87,38 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
         snackBar,
       }}
     >
-      <View style={{
-        flex: 1,
-        justifyContent: 'space-between'
-      }} >
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {snackBarIsOpen && (
+          <Customsnackbar
+            onDismiss={onCLoseSnack}
+            visible={snackBarIsOpen}
+            type={snackbarRef.current?.type ?? "info"}
+            duration={snackbarRef.current?.options?.duration}
+            action={{
+              label: snackbarRef.current?.options?.actionLabel ?? "Cerrar",
+              onPress: snackbarRef.current?.options?.onPress,
+              textColor: "white",
+            }}
+            message={snackbarRef.current?.message}
+          />
+        )}
 
-      {snackBarIsOpen && (
-        <Customsnackbar
-          onDismiss={onCLoseSnack}
-          visible={true}
-          action={{
-            label: snackbarRef.current?.options?.actionLabel ?? "",
-            onPress: snackbarRef.current?.options?.onPress,
-          }}
-        >
-          {/* {snackbarRef.current?.message} */}
-          Hola mundo cruel
-        </Customsnackbar>
-      )}
-
-      {children}
-      {isOpen && (
-        <Portal>
-          <Dialog visible={isOpen}>
-            {metaRef.current?.template &&
-              React.cloneElement(metaRef.current?.template as ReactElement, {})}
-          </Dialog>
-        </Portal>
-      )}
+        {children}
+        {isOpen && (
+          <Portal>
+            <Dialog visible={isOpen}>
+              {metaRef.current?.template &&
+                React.cloneElement(
+                  metaRef.current?.template as ReactElement,
+                  {}
+                )}
+            </Dialog>
+          </Portal>
+        )}
       </View>
     </ModalsContext.Provider>
   );

@@ -24,9 +24,8 @@ import useSnackbar from "@/shared/hooks/useSnackbar";
 
 const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
-  const { useInsertIncome } = incomesServices()
-  useEffect(() => {}, []);
-
+  const { useInsertIncome } = incomesServices();
+  const { snackBar } = useSnackbar();
 
   const formConfig = useForm<TCreateIncomeFormType>({
     defaultValues: createIncomeFormDefaultValues,
@@ -35,20 +34,33 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   });
 
   const onSubmit = async (values: TCreateIncomeFormType) => {
-    const { data, error, status } = await useInsertIncome.mutateAsync(values)
-
+    const { data, error, status } = await useInsertIncome.mutateAsync(values);
     if (status === 201) {
+      snackBar({
+        message: "El gasto ha sido creado satsifactoriamente.",
+        type: "success",
+      });
       formConfig.reset();
-      actionRef.current
+      actionRef.current?.hide();
     }
-    console.log(data, error,status );
+    if (error) {
+      snackBar({
+        message: "Ha ocurido un error al crear el gasto, intente nuevamente.",
+        type: "error",
+      });
+    }
   };
+
+  useEffect(() => {
+  
+  }, [])
+  
 
   return (
     <ActionSheet ref={actionRef}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Crear gasto</Text>
+          <Text style={styles.title}>Agregar Ingreso</Text>
           <IconButton
             icon={() => (
               <XIcon width={30} height={30} color={theme.colors.text} />
@@ -98,7 +110,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
+    // fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
+    fontWeight: 'bold',
+    color: theme.colors.text
   },
   containerForm: {
     width: "100%",
