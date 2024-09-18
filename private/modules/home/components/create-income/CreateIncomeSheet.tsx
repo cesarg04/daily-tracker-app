@@ -21,6 +21,7 @@ import FormError from "@/shared/components/form/form-error/FormError";
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import { incomesServices } from "@/shared/services/incomes/incomes.services";
 import useSnackbar from "@/shared/hooks/useSnackbar";
+import { BorderStyles } from "@/shared/components/sheet/Sheets";
 
 const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
@@ -51,13 +52,14 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
     }
   };
 
+  const values = formConfig.getFieldState('amount')
+
   useEffect(() => {
-  
-  }, [])
-  
+    console.log(values)
+  }, [values]);
 
   return (
-    <ActionSheet ref={actionRef}>
+    <ActionSheet ref={actionRef} containerStyle={BorderStyles.borders}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Agregar Ingreso</Text>
@@ -111,8 +113,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     // fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
-    fontWeight: 'bold',
-    color: theme.colors.text
+    fontWeight: "bold",
+    color: theme.colors.text,
   },
   containerForm: {
     width: "100%",

@@ -16,8 +16,8 @@ interface ITransactionsProps {
 const Transactions = (props: ITransactionsProps) => {
   const dimentions = useWindowDimensions();
   return (
-    <View style={[styles.conteiner, { maxHeight: dimentions.height - 480 }]}>
-      <Text style={styles.title}>Transaciones</Text>
+    <View style={[styles.conteiner, { height: dimentions.height - 480 }]}>
+      <Text style={styles.title}>Transacciones</Text>
       <FlatList
         data={props.data}
         renderItem={({ item }) => <TreansactionItems item={item} />}
