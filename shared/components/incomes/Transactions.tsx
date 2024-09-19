@@ -24,6 +24,7 @@ const Transactions = (props: ITransactionsProps) => {
         keyExtractor={({ id }) => id}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        // ListEmptyComponent={() =>  }
       />
     </View>
   );

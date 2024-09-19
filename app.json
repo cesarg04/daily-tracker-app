@@ -32,6 +32,10 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#0066CC",
+      "translucent": false
     }
   }
 }
