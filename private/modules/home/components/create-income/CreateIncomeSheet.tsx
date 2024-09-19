@@ -55,8 +55,7 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const values = formConfig.getFieldState('amount')
 
   useEffect(() => {
-    console.log(values)
-  }, [values]);
+  }, []);
 
   return (
     <ActionSheet ref={actionRef} containerStyle={BorderStyles.borders}>

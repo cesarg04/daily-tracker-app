@@ -53,7 +53,6 @@ const MaskedMoney = (props: IMoneyConfigProps) => {
   const [values, setValues] = useState<number | null>(null);
 
   useEffect(() => {
-    props.onChangeText?.('2323232')
   }, [])
   
 
