@@ -20,7 +20,7 @@ const Header = () => {
             icon="cog"
             size={30}
             iconColor="#FFFFFF"
-            onPress={() => router.navigate({ pathname: '/register'})}
+            onPress={() => router.navigate({ pathname: '/settings'})}
           />
         </View>
       </View>

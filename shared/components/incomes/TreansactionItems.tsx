@@ -56,6 +56,10 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
       icon: <EditIcon width={35} height={35} color={theme.colors.primary} />,
       onPress: () => {
         setisVisible(false);
+
+        SheetManager.show("edit-income-sheet", {
+          payload: { id: props.item.id },
+        });
       },
     },
     {

@@ -1,0 +1,4 @@
+export const USER_KEYS = {
+    GET_CURRENT_USER: "GET_CURRENT_USER"
+}
+
