@@ -43,33 +43,33 @@ export default function TabLayout() {
             ),
           }}
         />
-        <Tabs.Screen
-          name="monthly"
-          options={{
-            title: "Monthly",
-            tabBarIcon: ({ color, focused, size }) => (
-              <Ionicons
-                name="calendar-clear"
-                size={size}
-                color={focused ? "white" : "#ccc"}
-              />
-            ),
-          }}
-        />
 
         <Tabs.Screen
           name="weekly"
           options={{
-            title: "Monthly",
+            title: "Weekly",
             tabBarIcon: ({ color, focused, size }) => (
               <Ionicons
-                name="file-tray-stacked-sharp"
-                size={size}
-                color={focused ? "white" : "#ccc"}
+              name="file-tray-stacked-sharp"
+              size={size}
+              color={focused ? "white" : "#ccc"}
               />
             ),
           }}
         />
+          <Tabs.Screen
+            name="monthly"
+            options={{
+              title: "Monthly",
+              tabBarIcon: ({ color, focused, size }) => (
+                <Ionicons
+                  name="calendar-clear"
+                  size={size}
+                  color={focused ? "white" : "#ccc"}
+                />
+              ),
+            }}
+          />
       </Tabs>
       <IconButton
         size={45}

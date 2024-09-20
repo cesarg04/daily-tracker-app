@@ -49,7 +49,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar backgroundColor={theme.colors.primary} />
+        <StatusBar backgroundColor={theme.colors.primary} barStyle={'light-content'} />
         <PaperProvider
           theme={theme}
           settings={{

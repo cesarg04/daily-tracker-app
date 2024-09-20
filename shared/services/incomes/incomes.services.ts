@@ -6,6 +6,15 @@ import useAuthStore from "@/shared/store/auth/auth.store";
 import dayjs from "dayjs";
 
 const today = dayjs().format("YYYY-MM-DD");
+
+const todayBits = dayjs();
+
+const startOfWeek = todayBits.startOf("week");
+const endOfWeek = todayBits.endOf("week");
+
+const startOfMonth = todayBits.startOf("month");
+const endOfMonth = todayBits.endOf("month");
+
 export const incomesServices = () => {
   const supabase = useSupabase();
   const { user } = useAuthStore();
@@ -90,7 +99,18 @@ export const incomesServices = () => {
         .eq("user_id", user?.id!);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [INCOMES_KEYS.GET_INCOMES] });
+      Object.values(INCOMES_KEYS)
+        .filter(
+          (item) =>
+            item === INCOMES_KEYS.INCOMES_MONTLY ||
+            item === INCOMES_KEYS.INCOMES_MONTLY ||
+            item === INCOMES_KEYS.INCOMES_WEEKLY
+        )
+        .forEach((item) => {
+          queryClient.invalidateQueries({
+            queryKey: [item],
+          });
+        });
     },
   });
 
@@ -102,12 +122,45 @@ export const incomesServices = () => {
         .from("daily_income")
         .update({
           ...data,
-          amount: data.amount ? Number(data.amount) : undefined
+          amount: data.amount ? Number(data.amount) : undefined,
         })
         .eq("id", id)
         .eq("user_id", user?.id!);
     },
   });
+
+  const useGetIncomesOfTheWeek = () => {
+    return useQuery({
+      queryKey: [INCOMES_KEYS.INCOMES_WEEKLY],
+      queryFn: async () => {
+        return await supabase
+          .from("daily_income")
+          .select("*")
+          .eq("user_id", user?.id!)
+          .gte("date", startOfWeek.format("YYYY-MM-DD"))
+          .lte("date", endOfWeek.format("YYYY-MM-DD"))
+          .order("created_at", { ascending: false });
+      },
+      enabled: user?.id !== undefined,
+    });
+  };
+
+  const useGetIncomesOfTheMonth = () => {
+    return useQuery({
+      // initialData: { data: [] },
+      queryKey: [INCOMES_KEYS.INCOMES_MONTLY],
+      queryFn: async () => {
+        return await supabase
+          .from("daily_income")
+          .select("*")
+          .eq("user_id", user?.id!)
+          .gte("date", startOfMonth.format("YYYY-MM-DD"))
+          .lte("date", endOfMonth.format("YYYY-MM-DD"))
+          .order("created_at", { ascending: false });
+      },
+      enabled: user?.id !== undefined,
+    });
+  };
 
   return {
     useInsertMonthlyIncome,
@@ -116,6 +169,8 @@ export const incomesServices = () => {
     useGetIncomes,
     useGetIncomeById,
     useDeleteById,
-    useUpdateIncomes
+    useUpdateIncomes,
+    useGetIncomesOfTheWeek,
+    useGetIncomesOfTheMonth,
   };
 };

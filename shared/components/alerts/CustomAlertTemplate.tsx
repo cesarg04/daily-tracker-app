@@ -44,15 +44,15 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
             fontWeight: "bold",
           }}
         >
-          This is simple dialog
+         { props.message }
         </Text>
       </Dialog.Content>
 
       <Dialog.Actions>
-        {!showButtonDecline && (
+        {showButtonDecline && (
           <Button
             textColor={
-              !showButtonDecline ? stylesType.iconColor : theme.colors.primary
+              showButtonDecline ? stylesType.iconColor : theme.colors.primary
             }
             onPress={() => props?.onClose?.()}
           >
