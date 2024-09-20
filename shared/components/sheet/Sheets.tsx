@@ -2,7 +2,9 @@ import CreateIncomeSheet from "@/private/modules/home/components/create-income/C
 import { registerSheet, SheetDefinition } from "react-native-actions-sheet";
 import DetailIncome from "../incomes/DetailIncome";
 import { StyleSheet } from "react-native";
+import UpdateIncomeSheet from "@/private/modules/home/components/create-income/UpdateIncomeSheet";
 
+registerSheet("edit-income-sheet", UpdateIncomeSheet);
 registerSheet("create-income-sheet", CreateIncomeSheet);
 registerSheet("detail-income-sheet", DetailIncome);
 
@@ -13,14 +15,19 @@ declare module "react-native-actions-sheet" {
   interface Sheets {
     "create-income-sheet": SheetDefinition<{
       returnValue: {
-        onCreate?: (mode: 'success' | 'cancel') => void;
+        onCreate?: (mode: "success" | "cancel") => void;
       };
     }>;
     "detail-income-sheet": SheetDefinition<{
-      payload:{
-        id: string
-      }
-    }>
+      payload: {
+        id: string;
+      };
+    }>;
+    "edit-income-sheet": SheetDefinition<{
+      payload: {
+        id: string;
+      };
+    }>;
   }
 }
 
@@ -32,6 +39,5 @@ export const BorderStyles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopStartRadius: 20,
-  }
-})
-
+  },
+});

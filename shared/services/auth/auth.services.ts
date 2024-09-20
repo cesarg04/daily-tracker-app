@@ -3,6 +3,7 @@ import useSupabase from "@/shared/hooks/useSupabase";
 import { SignUpWithPasswordCredentials } from "@supabase/supabase-js";
 import { useMutation } from "@tanstack/react-query";
 import { AUTH_KEYS } from "./keys/auth.keys";
+import { supabase } from "@/shared/lib/supabase";
 
 export const authServices = () => {
   const client = useSupabase();
@@ -29,9 +30,17 @@ export const authServices = () => {
     },
   })
 
+  const useLogut = useMutation({
+    mutationFn: async() => {
+      return await client.auth.signOut()
+    },
+    mutationKey: [AUTH_KEYS.LOGOUT_MUTATION]
+  })
+
   return {
     useRegister,
     useLogin,
-    useGetStatusSession
+    useGetStatusSession,
+    useLogut
   };
 };
