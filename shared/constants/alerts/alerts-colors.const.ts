@@ -6,7 +6,7 @@ const alertStyles = StyleSheet.create({
     fontSize: 20,
   },
   warningText: {
-    color: "#FFF8E1",
+    color: "#FF9900",
     fontSize: 20,
   },
   errorText: {
@@ -32,7 +32,7 @@ const stylesMap = {
   warning: {
     text: alertStyles.warningText,
     icon: "warning",
-    iconColor: "#FFC107",
+    iconColor: "#FF9900",
   },
   error: {
     text: alertStyles.errorText,

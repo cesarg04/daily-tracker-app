@@ -18,7 +18,7 @@ export const getIncomesAdapter = (
     }[]
   >
 ): IGetIncomesData => {
-  const totalAmount = resp.data?.reduce(
+  const totalAmount = resp?.data?.reduce(
     (total, current) => total + current.amount,
     0
   );
@@ -26,7 +26,7 @@ export const getIncomesAdapter = (
     totalIncomes: formatCurrency(totalAmount ?? 0),
     totalDates: dayjs().format("D MMMM YYYY"),
     pureData:
-      resp.data?.map((item) => ({
+      resp?.data?.map((item) => ({
         amount: formatCurrency(item.amount),
         date: item.date ?? "",
         description: item.description ?? "",

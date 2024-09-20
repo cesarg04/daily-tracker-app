@@ -20,6 +20,7 @@ const useAlert = () => {
       options: {
         style: {
           minHeight: 220,
+          backgroundColor: 'white'
         },
       },
     });

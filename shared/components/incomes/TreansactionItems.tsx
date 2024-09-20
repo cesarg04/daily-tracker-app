@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { IPureData } from "@/shared/services/incomes/adapters/get-incomes.adapter";
 import { Avatar, Tooltip } from "react-native-paper";
 import { SheetManager } from "react-native-actions-sheet";
@@ -8,6 +8,8 @@ import theme from "@/shared/theme/theme";
 import EditIcon from "@/assets/icons/edit.svg";
 import TrashIcon from "@/assets/icons/trash.svg";
 import { incomesServices } from "@/shared/services/incomes/incomes.services";
+import useAlert from "@/shared/hooks/useAlert";
+import useSnackbar from "@/shared/hooks/useSnackbar";
 
 interface ITreansactionItemsProps {
   item: IPureData;
@@ -15,13 +17,17 @@ interface ITreansactionItemsProps {
 
 const TreansactionItems = (props: ITreansactionItemsProps) => {
   const { useDeleteById } = incomesServices();
+  const { alert } = useAlert();
+  const [isVisible, setisVisible] = useState(false);
+  const { snackBar } = useSnackbar();
 
   const initialLetter = useMemo(
     () => props.item.description.charAt(0).toUpperCase(),
     [props.item.description]
   );
+
   const truncateText = useCallback(
-    (text: string, maxLength: number = 6): string => {
+    (text: string, maxLength: number = 10): string => {
       if (text.length > maxLength) {
         return text.substring(0, maxLength) + "...";
       }
@@ -36,34 +42,63 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
     });
   };
 
+  const showPopover = () => {
+    setisVisible(!isVisible);
+  };
+
+  useEffect(() => {
+    // console.log(useDeleteById.isSuccess);
+  }, [useDeleteById.isSuccess]);
+
   const items = [
     {
       label: "Editar",
       icon: <EditIcon width={35} height={35} color={theme.colors.primary} />,
-      onPress: () => {},
+      onPress: () => {
+        setisVisible(false);
+      },
     },
     {
       label: "Eliminar",
       icon: <TrashIcon width={35} height={35} color={theme.colors.error} />,
       onPress: () => {
-        useDeleteById.mutate(props.item.id);
+        setisVisible(false);
+        setTimeout(() => {
+          alert({
+            message: "¿Está seguro(a) que desea eliminar el ingreso?",
+            type: "warning",
+            confirmBtnMessage: "Aceptar",
+            declineBtnMessage: "Cancelar",
+          }).then(async (res) => {
+            if (res.type === "confirm") {
+              useDeleteById.mutateAsync(props.item.id).then((data) => {
+                snackBar({
+                  message: "Ingreso eliminado satisfactoriamente",
+                  type: "success",
+                });
+              });
+            }
+          });
+        }, 1000);
       },
     },
   ];
 
-  useEffect(() => {}, []);
   return (
     <Popover
-      from={(sourcesRef, showPopover) => (
+      isVisible={isVisible}
+      onRequestClose={() => setisVisible(false)}
+      from={
         <TouchableOpacity
           onPress={onSelectIncome}
           style={{ flex: 1 }}
           onLongPress={showPopover}
         >
           <View style={styles.container}>
-            <Avatar.Text size={50} label={initialLetter} />
             <Tooltip title={props.item.description}>
-              <Text style={styles.description}>{props.item.description}</Text>
+              <Text style={styles.description}>
+                {truncateText(props.item.description, 20)}
+              </Text>
             </Tooltip>
             <Tooltip title={props.item.amount}>
               <Text style={styles.amount}>
@@ -72,15 +107,15 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
             </Tooltip>
           </View>
         </TouchableOpacity>
-      )}
+      }
       popoverStyle={{
         borderRadius: 10,
       }}
     >
       <View style={popoverStyles.container}>
         {items.map((item) => (
-          <TouchableOpacity onPress={item.onPress}>
-            <View key={item.label} style={popoverStyles.item}>
+          <TouchableOpacity key={item.label} onPress={item.onPress}>
+            <View style={popoverStyles.item}>
               {item.icon}
               <Text style={popoverStyles.itemText}>{item.label}</Text>
             </View>

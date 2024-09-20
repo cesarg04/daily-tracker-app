@@ -5,21 +5,43 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { IPureData } from "@/shared/services/incomes/adapters/get-incomes.adapter";
 import TreansactionItems from "./TreansactionItems";
+import { useSearch } from "@/shared/hooks/useSearch";
+import { IconButton } from "react-native-paper";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import SearchField from "../field/SearchField";
 
 interface ITransactionsProps {
   data: IPureData[];
 }
 
 const Transactions = (props: ITransactionsProps) => {
+  const [search, setSearch] = useState("");
+  const [isSearchMode, setisSearchMode] = useState(false);
+  const data = useSearch(props.data, ["amount", "description", "id"], search);
   const dimentions = useWindowDimensions();
+
+
   return (
     <View style={[styles.conteiner, { height: dimentions.height - 480 }]}>
-      <Text style={styles.title}>Transacciones</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Transacciones</Text>
+        <IconButton
+          icon={() => (
+            <Ionicons
+              size={40}
+              name="search"
+              onPress={() => setisSearchMode(!isSearchMode)}
+            />
+          )}
+        />
+      </View>
+      {isSearchMode && <SearchField value={search} onChangeText={setSearch} />}
+
       <FlatList
-        data={props.data}
+        data={data}
         renderItem={({ item }) => <TreansactionItems item={item} />}
         keyExtractor={({ id }) => id}
         showsHorizontalScrollIndicator={false}
@@ -44,5 +66,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
+  },
+  headerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
