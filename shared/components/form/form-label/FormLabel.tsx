@@ -7,6 +7,7 @@ import { fontFamilies } from "@/shared/constants/fonts/fonts.conts";
 
 interface IFormLabelProps {
   children: React.ReactNode;
+  color?: string;
 }
 
 const FormLabel = (props: IFormLabelProps) => {
@@ -16,7 +17,11 @@ const FormLabel = (props: IFormLabelProps) => {
   return (
     <Text
       style={{
-        color: !!error ? theme.colors.error : theme.colors.primary,
+        color: !!error
+          ? theme.colors.error
+          : props.color
+          ? props.color
+          : theme.colors.primary,
         ...styles.text,
       }}
     >

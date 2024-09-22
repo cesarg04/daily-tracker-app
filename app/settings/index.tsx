@@ -16,8 +16,8 @@ const settings = () => {
   const { data } = useGetUser();
   const { user, logout } = useAuthStore();
   const { alert } = useAlert();
-  const { useLogut }  = authServices();
-  const router = useRouter()
+  const { useLogut } = authServices();
+  const router = useRouter();
   const [isNotificationsPushEnabled, setisNotificationsPushEnabled] =
     useState(false);
 
@@ -42,12 +42,11 @@ const settings = () => {
       confirmBtnMessage: "Si",
       declineBtnMessage: "No",
     }).then(async (res) => {
-      if (res.type === 'confirm') {
-        const { error } =  await useLogut.mutateAsync();
-
+      if (res.type === "confirm") {
+        const { error } = await useLogut.mutateAsync();
         if (!error) {
-          logout()
-          router.replace('/(auth)/sign-in')
+          logout();
+          router.replace("/(auth)/sign-in");
         }
       }
     });
@@ -87,6 +86,9 @@ const settings = () => {
               mode="contained"
               labelStyle={{ fontSize: 20 }}
               style={{ borderRadius: 15 }}
+              onPress={() => {
+                router.navigate("/settings/edit-profile");
+              }}
             >
               Editar perfil
             </Button>
@@ -155,8 +157,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     marginTop: 5,
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
   nameContainer: {
     display: "flex",

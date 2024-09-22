@@ -12,7 +12,6 @@ const Weekly = () => {
   const incomes = useGetIncomesOfTheWeek();
   
     useEffect(() => {
-      console.log(incomes.isFetching, incomes.data?.data?.length)
     
     }, [incomes])
 

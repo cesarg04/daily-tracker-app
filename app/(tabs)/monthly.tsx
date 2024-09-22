@@ -22,7 +22,6 @@ const Monthly = () => {
 
   useEffect(() => {
     
-    console.log('is refetched', isRefetching)
   }, [data, isRefetching])
   
 

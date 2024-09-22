@@ -17,7 +17,6 @@ const UpdateIncomeSheet = (props: SheetProps<"edit-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
 //   const { useGetIncomeById } = incomesServices();
 
-  console.log(props.payload?.id)
 
 //   const incomes = useGetIncomeById(props.payload?.id);
 
