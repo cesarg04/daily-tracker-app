@@ -12,6 +12,7 @@ import { useSearch } from "@/shared/hooks/useSearch";
 import { IconButton } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SearchField from "../field/SearchField";
+import Box from "../box/Box";
 
 interface ITransactionsProps {
   data: IPureData[];
@@ -25,7 +26,7 @@ const Transactions = (props: ITransactionsProps) => {
 
 
   return (
-    <View style={[styles.conteiner, { height: dimentions.height - 480 }]}>
+    <Box style={[styles.conteiner, { height: dimentions.height - 480 }]}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Transacciones</Text>
         <IconButton
@@ -48,7 +49,7 @@ const Transactions = (props: ITransactionsProps) => {
         showsVerticalScrollIndicator={false}
         // ListEmptyComponent={() =>  }
       />
-    </View>
+    </Box>
   );
 };
 

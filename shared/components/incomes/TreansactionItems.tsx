@@ -10,6 +10,7 @@ import TrashIcon from "@/assets/icons/trash.svg";
 import { incomesServices } from "@/shared/services/incomes/incomes.services";
 import useAlert from "@/shared/hooks/useAlert";
 import useSnackbar from "@/shared/hooks/useSnackbar";
+import { stylesMap } from "@/shared/constants/alerts/alerts-colors.const";
 
 interface ITreansactionItemsProps {
   item: IPureData;
@@ -45,10 +46,6 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
   const showPopover = () => {
     setisVisible(!isVisible);
   };
-
-  useEffect(() => {
-    // console.log(useDeleteById.isSuccess);
-  }, [useDeleteById.isSuccess]);
 
   const items = [
     {
@@ -149,6 +146,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 20,
     fontWeight: "bold",
+    color: stylesMap.success.iconColor
   },
 });
 

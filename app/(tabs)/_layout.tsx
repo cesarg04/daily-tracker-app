@@ -8,9 +8,7 @@ import { SheetManager } from "react-native-actions-sheet";
 
 export default function TabLayout() {
   const onOpenCreate = () => {
-    SheetManager.show("create-income-sheet").then((res) => {
-      // console.log(res)
-    });
+    SheetManager.show("create-income-sheet").then((res) => {});
   };
 
   return (
@@ -26,14 +24,14 @@ export default function TabLayout() {
           },
           tabBarLabelStyle: {
             fontSize: 15,
-            fontWeight: "500",
+            fontWeight: "bold",
           },
         }}
       >
         <Tabs.Screen
           name="home"
           options={{
-            title: "Home",
+            title: "Inicio",
             tabBarIcon: ({ color, focused, size }) => (
               <Ionicons
                 name="home"
@@ -47,29 +45,29 @@ export default function TabLayout() {
         <Tabs.Screen
           name="weekly"
           options={{
-            title: "Weekly",
+            title: "Senamal",
             tabBarIcon: ({ color, focused, size }) => (
               <Ionicons
-              name="file-tray-stacked-sharp"
-              size={size}
-              color={focused ? "white" : "#ccc"}
+                name="file-tray-stacked-sharp"
+                size={size}
+                color={focused ? "white" : "#ccc"}
               />
             ),
           }}
         />
-          <Tabs.Screen
-            name="monthly"
-            options={{
-              title: "Monthly",
-              tabBarIcon: ({ color, focused, size }) => (
-                <Ionicons
-                  name="calendar-clear"
-                  size={size}
-                  color={focused ? "white" : "#ccc"}
-                />
-              ),
-            }}
-          />
+        <Tabs.Screen
+          name="monthly"
+          options={{
+            title: "Mensual",
+            tabBarIcon: ({ color, focused, size }) => (
+              <Ionicons
+                name="calendar-clear"
+                size={size}
+                color={focused ? "white" : "#ccc"}
+              />
+            ),
+          }}
+        />
       </Tabs>
       <IconButton
         size={45}

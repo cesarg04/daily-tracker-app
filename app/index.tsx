@@ -23,7 +23,6 @@ export default function Index() {
         error,
       } = await useGetStatusSession.mutateAsync();
       if (session) {
-        console.log(session.user)
         login(session?.user, session?.access_token);
         router.replace("/home");
         return;

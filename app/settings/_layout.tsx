@@ -9,7 +9,11 @@ const SettingsLayout = () => {
     <Stack
       screenOptions={({ route, navigation }) => ({
         headerLeft: () => (
-          <IconButton onPress={() => navigation.goBack() } icon={() => <Ionicons name="chevron-back" size={40} />} />
+          <IconButton
+            style={{ position: "absolute" }}
+            onPress={() => navigation.goBack()}
+            icon={() => <Ionicons name="chevron-back" size={40} />}
+          />
         ),
         headerTitleStyle: {
           fontSize: 25,
@@ -21,6 +25,12 @@ const SettingsLayout = () => {
           title: "Ajustes",
         }}
         name="index"
+      />
+      <Stack.Screen
+        options={{
+          title: "Editar perfil",
+        }}
+        name="edit-profile"
       />
     </Stack>
   );
