@@ -1,6 +1,5 @@
 import theme from "@/shared/theme/theme";
 import { Stack } from "expo-router";
-import { StatusBar } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -27,6 +26,8 @@ import {
   Asul_400Regular,
   Asul_700Bold,
 } from "@expo-google-fonts/asul";
+import { StatusBar } from "react-native";
+// import { StatusBar } from 'expo-status-bar';
 
 const queryClient = new QueryClient();
 
@@ -49,7 +50,11 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar backgroundColor={theme.colors.primary} barStyle={'light-content'} />
+        <StatusBar
+          backgroundColor={theme.colors.primary}
+          hidden={false}
+          barStyle={"default"}
+        />
         <PaperProvider
           theme={theme}
           settings={{

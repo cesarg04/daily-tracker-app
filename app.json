@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "daily-tracker",
-    "slug": "daily-tracker",
+    "slug": "daily-earnings-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,6 +37,12 @@
     "androidStatusBar": {
       "backgroundColor": "#0066CC",
       "translucent": false
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e8ee45a-92ce-4a99-ba53-1bb4b23308df"
+      }
+    },
+    "owner": "elduro2002"
   }
 }
