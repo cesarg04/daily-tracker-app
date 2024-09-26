@@ -8,9 +8,19 @@ import Loading from "@/shared/components/loading/Loading";
 import ErrorComponent from "@/shared/components/error/ErrorComponent";
 
 const Home = () => {
-  const { useGetIncomes } = incomesServices();
+  const { useGetIncomes, useGetMonthsActivity } = incomesServices();
   const { data, isLoading, error } = useGetIncomes({});
+
+  const month = useGetMonthsActivity()
+
+  useEffect(() => {
+    
+    console.log(month.data?.data)
+    
+  }, [month])
   
+
+
   if (isLoading && !data) {
     return <Loading />;
   }

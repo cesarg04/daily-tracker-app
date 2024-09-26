@@ -145,7 +145,10 @@ export const incomesServices = () => {
     });
   };
 
-  const useGetIncomesOfTheMonth = () => {
+  const useGetIncomesOfTheMonth = (options?: {
+    start?: string;
+    end?: string;
+  }) => {
     return useQuery({
       // initialData: { data: [] },
       queryKey: [INCOMES_KEYS.INCOMES_MONTLY],
@@ -154,11 +157,29 @@ export const incomesServices = () => {
           .from("daily_income")
           .select("*")
           .eq("user_id", user?.id!)
-          .gte("date", startOfMonth.format("YYYY-MM-DD"))
-          .lte("date", endOfMonth.format("YYYY-MM-DD"))
+          .gte("date", options?.start ?? startOfMonth.format("YYYY-MM-DD"))
+          .lte("date", options?.end ?? endOfMonth.format("YYYY-MM-DD"))
           .order("created_at", { ascending: false });
       },
       enabled: user?.id !== undefined,
+    });
+  };
+
+  const useGetMonthsActivity = () => {
+    return useQuery({
+      queryKey: [INCOMES_KEYS.MONTH_ACTIVITY],
+      queryFn: async () => {
+        return await supabase.rpc("get_active_months");
+      },
+    });
+  };
+
+  const useGetWeekActivity = () => {
+    return useQuery({
+      queryKey: [INCOMES_KEYS.WEEK_ACTIVITY],
+      queryFn: async () => {
+        return await supabase.rpc("get_active_weeks_of_months");
+      },
     });
   };
 
@@ -172,5 +193,7 @@ export const incomesServices = () => {
     useUpdateIncomes,
     useGetIncomesOfTheWeek,
     useGetIncomesOfTheMonth,
+    useGetMonthsActivity,
+    useGetWeekActivity,
   };
 };

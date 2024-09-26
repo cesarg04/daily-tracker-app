@@ -3,9 +3,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { USER_KEYS } from "./keys/user.keys";
 import { supabase } from "@/shared/lib/supabase";
 import { TUpdateProfileFormType } from "@/private/modules/settings/util/update-profile.schema";
-import {Buffer} from 'buffer';
-import { decode } from 'base64-arraybuffer';
-
+import { Buffer } from "buffer";
+import { decode } from "base64-arraybuffer";
 
 export const userServices = () => {
   const { user } = useAuthStore();
@@ -26,15 +25,13 @@ export const userServices = () => {
   const useUpdateUser = useMutation({
     mutationKey: [USER_KEYS.UPDATE_USER],
     mutationFn: async (values: any) => {
-        console.log(values)
       const avatarUrl = await supabase.storage
         .from("avatars")
-        .upload(values.filePath, decode(values.uri), {
+        .upload(values.filePath, values.uri, {
           contentType: values.contentType,
-        })
+        });
 
-
-        console.log(avatarUrl)
+      console.log(avatarUrl);
       return avatarUrl;
     },
   });

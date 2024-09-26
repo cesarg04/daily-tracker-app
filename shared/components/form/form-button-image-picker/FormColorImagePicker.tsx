@@ -39,10 +39,15 @@ const FormColorImagePicker = (props: IFormColorImagePickerProps) => {
       const base64Image = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-      const filePath = `${user?.id}/${new Date().getTime()}.${
-        result.assets[0].fileName?.split('.').pop()?.toLowerCase()
-      }`;
-      console.log(filePath)
+      const filePath = `${
+        user?.id
+      }/${new Date().getTime()}.${result.assets[0].fileName
+        ?.split(".")
+        .pop()
+        ?.toLowerCase()}`;
+
+      
+
       field.onChange({
         uri: imageUri,
         filePath,

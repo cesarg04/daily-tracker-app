@@ -45,7 +45,6 @@ const EditProfile = () => {
 
   const onInsert = async() => {
       const { data, error } = await useUpdateUser.mutateAsync(avatar);
-      console.log(data, error, 'data and error')
   }
 
   if (currentUser.isLoading) {
