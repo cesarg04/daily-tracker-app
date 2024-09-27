@@ -149,10 +149,12 @@ export const incomesServices = () => {
     start?: string;
     end?: string;
   }) => {
+    // console.log("start date", options);
     return useQuery({
       // initialData: { data: [] },
-      queryKey: [INCOMES_KEYS.INCOMES_MONTLY],
+      queryKey: [INCOMES_KEYS.INCOMES_MONTLY, options?.start, options?.end],
       queryFn: async () => {
+        console.log(startOfMonth.format("YYYY-MM-DD"), options?.start, 'ddm')
         return await supabase
           .from("daily_income")
           .select("*")

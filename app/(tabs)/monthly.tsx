@@ -1,5 +1,11 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { incomesServices } from "@/shared/services/incomes/incomes.services";
 import Loading from "@/shared/components/loading/Loading";
 import ErrorComponent from "@/shared/components/error/ErrorComponent";
@@ -10,37 +16,39 @@ import CustomSelect from "@/shared/components/incomes/CustomSelect";
 
 const Monthly = () => {
   const { useGetIncomesOfTheMonth } = incomesServices();
+  const { data, error, isLoading, isRefetching, refetch } =
+    useGetIncomesOfTheMonth();
 
-  const { data, error, isLoading, isRefetching } = useGetIncomesOfTheMonth();
+  const onRefresh = () => {
+    refetch();
+  };
 
   if (isLoading || !data) {
     <Loading />;
   }
-
   if (error && !data) {
     return <ErrorComponent />;
   }
-
-  useEffect(() => {
-    
-  }, [data, isRefetching])
-  
-
-
   const adapted = getIncomesAdapter(data!);
 
   return (
-    <ScrollView>
-
-    <View style={styles.container}>
-      <CustomSelect/>
-      <Totalncomes
-        amount={adapted.totalIncomes}
-        title="Ingresos totales del mes"
-        date={adapted.totalDates}
-      />
-      <Transactions data={adapted.pureData} />
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isLoading || isRefetching}
+          onRefresh={onRefresh}
+        />
+      }
+    >
+      <View style={styles.container}>
+        <Totalncomes
+          amount={adapted.totalIncomes}
+          title="Ingresos totales del mes"
+          date={adapted.totalDates}
+        />
+        <CustomSelect />
+        <Transactions data={adapted.pureData} />
+      </View>
     </ScrollView>
   );
 };
