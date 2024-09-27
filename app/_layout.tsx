@@ -28,6 +28,12 @@ import {
 } from "@expo-google-fonts/asul";
 import { StatusBar } from "react-native";
 // import { StatusBar } from 'expo-status-bar';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es'; // Importa la configuración de idioma español
+
+// Establece el idioma a español
+dayjs.locale('es');
+
 
 const queryClient = new QueryClient();
 

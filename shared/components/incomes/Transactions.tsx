@@ -24,7 +24,6 @@ const Transactions = (props: ITransactionsProps) => {
   const data = useSearch(props.data, ["amount", "description", "id"], search);
   const dimentions = useWindowDimensions();
 
-
   return (
     <Box style={[styles.conteiner, { height: dimentions.height - 480 }]}>
       <View style={styles.headerContainer}>
