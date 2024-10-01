@@ -50,11 +50,15 @@ export const MaskType = forwardRef<any, MaskTypeProps>(
 );
 
 const MaskedMoney = (props: IMoneyConfigProps) => {
-  const [values, setValues] = useState<number | null>(null);
+  const [values, setValues] = useState<number | null>(() => {
+    if (props.value && !isNaN(+props.value)) {
+      return +props.value;
+    }
+    return null;
+  });
 
   useEffect(() => {
-  }, [])
-  
+  }, []);
 
   const moneyMaskConfig: CurrencyInputProps = {
     ...props,
@@ -65,13 +69,11 @@ const MaskedMoney = (props: IMoneyConfigProps) => {
     minValue: 0,
     signPosition: "afterPrefix",
     onChangeValue(value) {
-      props.onChangeText?.(value?.toString() ?? '')
+      props.onChangeText?.(value?.toString() ?? "");
       setValues(value);
     },
     value: values,
-    onChangeText(text) {
-      
-    },
+    onChangeText(text) {},
   };
 
   return <CurrencyInput {...moneyMaskConfig} />;

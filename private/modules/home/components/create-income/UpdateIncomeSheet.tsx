@@ -12,30 +12,48 @@ import { incomesPatchAdapter } from "@/shared/services/incomes/adapters/incomes-
 import { TCreateIncomeFormType } from "../../util/create-income-schema.util";
 import ErrorComponent from "@/shared/components/error/ErrorComponent";
 import { ActivityIndicator } from "react-native-paper";
+import useSnackbar from "@/shared/hooks/useSnackbar";
 
 const UpdateIncomeSheet = (props: SheetProps<"edit-income-sheet">) => {
   const actionRef = useRef<ActionSheetRef>(null);
-//   const { useGetIncomeById } = incomesServices();
+  const { useGetIncomeById, useUpdateIncomes } = incomesServices();
+  const { snackBar } = useSnackbar();
+  const incomes = useGetIncomeById(props.payload?.id);
 
+  const onSubmit = async (values: TCreateIncomeFormType) => {
+    const { error, status } = await useUpdateIncomes.mutateAsync({
+      id: props.payload?.id!,
+      formData: values,
+    });
+    if (status === 204) {
+      snackBar({
+        message: "El gasto ha sido actualizado satsifactoriamente.",
+        type: "success",
+      });
+      actionRef.current?.hide();
+    }
+    if (error) {
+      snackBar({
+        message:
+          "Ha ocurido un error al actualizar el gasto, intente nuevamente.",
+        type: "error",
+      });
+    }
+  };
 
-//   const incomes = useGetIncomeById(props.payload?.id);
+  const adapted = incomes.data ? incomesPatchAdapter(incomes.data) : undefined;
 
-//   const onSubmit = async (values: TCreateIncomeFormType) => {};
+  useEffect(() => {
+    // actionRef.current?.show();
+  }, []);
 
-//   const adapted = incomes.data ? incomesPatchAdapter(incomes.data) : undefined;
-
-
-    useEffect(() => {
-        actionRef.current?.show()
-    }, [])
-    
   return (
     <ActionSheet
       ref={actionRef}
-    //   id={props.sheetId}
+      id={props.sheetId}
       containerStyle={BorderStyles.borders}
     >
-      {/* {incomes.isLoading && !incomes.data && <ActivityIndicator />}
+      {incomes.isLoading && !incomes.data && <ActivityIndicator />}
 
       {adapted && (
         <IncomesFormLayout
@@ -43,8 +61,7 @@ const UpdateIncomeSheet = (props: SheetProps<"edit-income-sheet">) => {
           initialValues={adapted}
           onSubmit={onSubmit}
         />
-      )} */}
-      <Text>Hola mundo</Text>
+      )}
     </ActionSheet>
   );
 };

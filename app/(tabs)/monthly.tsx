@@ -13,11 +13,31 @@ import { getIncomesAdapter } from "@/shared/services/incomes/adapters/get-income
 import Totalncomes from "@/shared/components/incomes/Totalncomes";
 import Transactions from "@/shared/components/incomes/Transactions";
 import CustomSelect from "@/shared/components/incomes/CustomSelect";
+import { O_MONTHS_YEARS_OBJ, TMonthValue } from "@/shared/constants/months/months.const";
+import dayjs from "dayjs";
 
 const Monthly = () => {
   const { useGetIncomesOfTheMonth } = incomesServices();
+  const [monthSelected, setMonthSelected] = useState<TMonthValue>(
+    dayjs().format("MM").toString() as TMonthValue
+  );
   const { data, error, isLoading, isRefetching, refetch } =
-    useGetIncomesOfTheMonth();
+    useGetIncomesOfTheMonth({
+      end: O_MONTHS_YEARS_OBJ[monthSelected].endDate,
+      start: O_MONTHS_YEARS_OBJ[monthSelected].startDate,
+    });
+
+  const onChangeParams = (date: TMonthValue) => {
+    console.log('setted')
+    setMonthSelected(date)
+  };
+
+  useEffect(() => {
+    
+    console.log('is refetching', isLoading)
+    
+  }, [isRefetching])
+  
 
   const onRefresh = () => {
     refetch();
@@ -46,7 +66,7 @@ const Monthly = () => {
           title="Ingresos totales del mes"
           date={adapted.totalDates}
         />
-        <CustomSelect />
+        <CustomSelect onChangeDates={setMonthSelected} />
         <Transactions data={adapted.pureData} />
       </View>
     </ScrollView>
