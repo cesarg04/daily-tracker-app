@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { IPureData } from "@/shared/services/incomes/adapters/get-incomes.adapter";
 import { Avatar, Tooltip } from "react-native-paper";
@@ -51,12 +51,14 @@ const TreansactionItems = (props: ITreansactionItemsProps) => {
     {
       label: "Editar",
       icon: <EditIcon width={35} height={35} color={theme.colors.primary} />,
-      onPress: () => {
+      onPress: (event: GestureResponderEvent) => {
         setisVisible(false);
-
-        SheetManager.show("edit-income-sheet", {
-          payload: { id: props.item.id },
-        });
+        event.stopPropagation()
+        setTimeout(() => {
+          SheetManager.show("edit-income-sheet", {
+            payload: { id: props.item.id },
+          });
+        }, 1000);
       },
     },
     {

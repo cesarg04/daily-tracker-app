@@ -14,9 +14,6 @@ registerSheet("detail-income-sheet", DetailIncome);
 declare module "react-native-actions-sheet" {
   interface Sheets {
     "create-income-sheet": SheetDefinition<{
-      returnValue: {
-        onCreate?: (mode: "success" | "cancel") => void;
-      };
     }>;
     "detail-income-sheet": SheetDefinition<{
       payload: {

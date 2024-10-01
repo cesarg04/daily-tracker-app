@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect } from "react";
 import { TCreateIncomeFormType } from "../../util/create-income-schema.util";
 import theme from "@/shared/theme/theme";
 import { ActionSheetRef } from "react-native-actions-sheet";
@@ -33,7 +33,6 @@ const IncomesFormLayout = (props: IIncomesFormLayoutProps) => {
     formConfig.reset();
     await props.onSubmit(values)
   }
-
 
   return (
     <View style={styles.container}>

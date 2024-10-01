@@ -10,22 +10,16 @@ import {
 } from "@/shared/constants/months/months.const";
 import BlackButton from "../buttons/BlackButton";
 import dayjs from "dayjs";
-import { incomesServices } from "@/shared/services/incomes/incomes.services";
 
-interface ICustomSelectProps {}
+interface ICustomSelectProps {
+  onChangeDates: (month: TMonthValue) => void;
+}
 
 const CustomSelect = (props: ICustomSelectProps) => {
   const [mode, setMode] = useState<"month" | "year">("month");
-  const { useGetIncomesOfTheMonth } = incomesServices();
-
   const [monthSelected, setMonthSelected] = useState<TMonthValue>(
     dayjs().format("MM").toString() as TMonthValue
   );
-
-  const _ = useGetIncomesOfTheMonth({
-    end: O_MONTHS_YEARS_OBJ[monthSelected].endDate,
-    start: O_MONTHS_YEARS_OBJ[monthSelected].startDate,
-  });
 
   const getMonthComplete = useMemo(() => {
     return O_MONTHS_YEARS_OBJ[monthSelected].name;
@@ -43,8 +37,10 @@ const CustomSelect = (props: ICustomSelectProps) => {
     }
     if (mode === "increment") {
       setMonthSelected(A_MONTHS_OF_YEARS[monthIndex + 1].value);
+      props.onChangeDates(A_MONTHS_OF_YEARS[monthIndex + 1].value);
     } else {
       setMonthSelected(A_MONTHS_OF_YEARS[monthIndex - 1].value);
+      props.onChangeDates(A_MONTHS_OF_YEARS[monthIndex - 1].value);
     }
   };
 
@@ -91,7 +87,10 @@ const CustomSelect = (props: ICustomSelectProps) => {
             style={{ width: "45%" }}
             key={item.value}
             isSelected={item.value === monthSelected}
-            onPress={() => setMonthSelected(item.value)}
+            onPress={() => {
+              setMonthSelected(item.value)
+              props.onChangeDates(item.value)
+            }}
           >
             {item.label}
           </BlackButton>

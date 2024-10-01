@@ -32,8 +32,6 @@ export const incomesServices = () => {
     mutationFn: async () => {
       return await supabase.rpc("insert_monthly_income");
     },
-    onSuccess(data, variables, context) {},
-    onError(error, variables, context) {},
   });
 
   const useInsertIncome = useMutation({
@@ -50,6 +48,12 @@ export const incomesServices = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [INCOMES_KEYS.GET_INCOMES] });
+      queryClient.invalidateQueries({
+        queryKey: [INCOMES_KEYS.INCOMES_MONTLY],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [INCOMES_KEYS.INCOMES_WEEKLY],
+      });
     },
   });
 
@@ -116,16 +120,32 @@ export const incomesServices = () => {
 
   const useUpdateIncomes = useMutation({
     mutationKey: [INCOMES_KEYS.UPDATE_INCOME],
-    // @ts-ignore
-    mutationFn: async (id: string, data: TCreateIncomeFormType) => {
+    mutationFn: async (data: {
+      id: string;
+      formData: TCreateIncomeFormType;
+    }) => {
       return await supabase
         .from("daily_income")
         .update({
-          ...data,
-          amount: data.amount ? Number(data.amount) : undefined,
+          ...data.formData,
+          amount: data.formData.amount
+            ? Number(data.formData.amount)
+            : undefined,
         })
-        .eq("id", id)
+        .eq("id", data.id)
         .eq("user_id", user?.id!);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [INCOMES_KEYS.GET_INCOMES] });
+      queryClient.invalidateQueries({
+        queryKey: [INCOMES_KEYS.INCOMES_MONTLY],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [INCOMES_KEYS.INCOMES_WEEKLY],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [INCOMES_KEYS.GET_INCOME_BY_ID],
+      });
     },
   });
 
@@ -149,12 +169,9 @@ export const incomesServices = () => {
     start?: string;
     end?: string;
   }) => {
-    // console.log("start date", options);
     return useQuery({
-      // initialData: { data: [] },
       queryKey: [INCOMES_KEYS.INCOMES_MONTLY, options?.start, options?.end],
       queryFn: async () => {
-        console.log(startOfMonth.format("YYYY-MM-DD"), options?.start, 'ddm')
         return await supabase
           .from("daily_income")
           .select("*")

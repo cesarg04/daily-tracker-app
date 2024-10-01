@@ -21,7 +21,7 @@ const CreateIncomeSheet = (props: SheetProps<"create-income-sheet">) => {
   const { snackBar } = useSnackbar();
 
   const onSubmit = async (values: TCreateIncomeFormType) => {
-    const { data, error, status } = await useInsertIncome.mutateAsync(values);
+    const { error, status } = await useInsertIncome.mutateAsync(values);
     if (status === 201) {
       snackBar({
         message: "El gasto ha sido creado satsifactoriamente.",
