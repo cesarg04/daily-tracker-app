@@ -58,7 +58,10 @@ const MaskedMoney = (props: IMoneyConfigProps) => {
   });
 
   useEffect(() => {
-  }, []);
+    if (!props.value || props.value.length <= 0) {
+      setValues(null)
+    }
+  }, [props.value]);
 
   const moneyMaskConfig: CurrencyInputProps = {
     ...props,

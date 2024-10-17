@@ -11,16 +11,6 @@ const Home = () => {
   const { useGetIncomes, useGetMonthsActivity } = incomesServices();
   const { data, isLoading, error } = useGetIncomes({});
 
-  const month = useGetMonthsActivity()
-
-  useEffect(() => {
-    
-    console.log(month.data?.data)
-    
-  }, [month])
-  
-
-
   if (isLoading && !data) {
     return <Loading />;
   }

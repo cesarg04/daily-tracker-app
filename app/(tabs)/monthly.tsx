@@ -26,17 +26,6 @@ const Monthly = () => {
       end: O_MONTHS_YEARS_OBJ[monthSelected].endDate,
       start: O_MONTHS_YEARS_OBJ[monthSelected].startDate,
     });
-
-  const onChangeParams = (date: TMonthValue) => {
-    console.log('setted')
-    setMonthSelected(date)
-  };
-
-  useEffect(() => {
-    
-    console.log('is refetching', isLoading)
-    
-  }, [isRefetching])
   
 
   const onRefresh = () => {

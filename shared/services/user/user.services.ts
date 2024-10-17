@@ -30,8 +30,6 @@ export const userServices = () => {
         .upload(values.filePath, values.uri, {
           contentType: values.contentType,
         });
-
-      console.log(avatarUrl);
       return avatarUrl;
     },
   });
