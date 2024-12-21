@@ -1,6 +1,7 @@
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { IPureData } from "./get-incomes.adapter";
 import { formatCurrency } from "@/shared/helpers/parse-money.helper";
+import formatDateDescription from "@/shared/helpers/parse-date.helper";
 
 export const getIncomeById = (
   resp: PostgrestSingleResponse<{
@@ -17,7 +18,7 @@ export const getIncomeById = (
 
   return {
     amount: formatCurrency(data?.amount ?? 0),
-    date: data?.date ?? "",
+    date: formatDateDescription(data?.date ?? ""),
     description: data?.description ?? "",
     id: data?.id ?? "",
     source: data?.source ?? "",
