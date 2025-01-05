@@ -1,5 +1,5 @@
-import { SignUpWithPasswordCredentials } from "@supabase/supabase-js";
-import { TRegisterFormType } from "../util/register-schema.util";
+import { SignUpWithPasswordCredentials } from '@supabase/supabase-js';
+import { TRegisterFormType } from '../util/register-schema.util';
 
 export const registerAdapter = (
   data: TRegisterFormType

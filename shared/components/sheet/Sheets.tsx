@@ -1,26 +1,25 @@
-import CreateIncomeSheet from "@/private/modules/home/components/create-income/CreateIncomeSheet";
-import { registerSheet, SheetDefinition } from "react-native-actions-sheet";
-import DetailIncome from "../incomes/DetailIncome";
-import { StyleSheet } from "react-native";
-import UpdateIncomeSheet from "@/private/modules/home/components/create-income/UpdateIncomeSheet";
+import CreateIncomeSheet from '@/private/modules/home/components/create-income/CreateIncomeSheet';
+import { registerSheet, SheetDefinition } from 'react-native-actions-sheet';
+import DetailIncome from '../incomes/DetailIncome';
+import { StyleSheet } from 'react-native';
+import UpdateIncomeSheet from '@/private/modules/home/components/create-income/UpdateIncomeSheet';
 
-registerSheet("edit-income-sheet", UpdateIncomeSheet);
-registerSheet("create-income-sheet", CreateIncomeSheet);
-registerSheet("detail-income-sheet", DetailIncome);
+registerSheet('edit-income-sheet', UpdateIncomeSheet);
+registerSheet('create-income-sheet', CreateIncomeSheet);
+registerSheet('detail-income-sheet', DetailIncome);
 
 // We extend some of the types here to give us great intellisense
 // across the app for all registered sheets.
 
-declare module "react-native-actions-sheet" {
+declare module 'react-native-actions-sheet' {
   interface Sheets {
-    "create-income-sheet": SheetDefinition<{
-    }>;
-    "detail-income-sheet": SheetDefinition<{
+    'create-income-sheet': SheetDefinition<{}>;
+    'detail-income-sheet': SheetDefinition<{
       payload: {
         id: string;
       };
     }>;
-    "edit-income-sheet": SheetDefinition<{
+    'edit-income-sheet': SheetDefinition<{
       payload: {
         id: string;
       };

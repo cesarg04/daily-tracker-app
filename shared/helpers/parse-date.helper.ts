@@ -6,8 +6,8 @@ dayjs.extend(localeData);
 dayjs.locale('es');
 
 const formatDateDescription = (dateString: string): string => {
-    const date = dayjs(dateString, 'MM-DD-YYYY');
-    return date.format('D [de] MMMM [de] YYYY');
+  const date = dayjs(dateString, 'MM-DD-YYYY');
+  return date.format('D [de] MMMM [de] YYYY');
 };
 
 export default formatDateDescription;

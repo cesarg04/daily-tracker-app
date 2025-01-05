@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, SwitchProps } from "react-native-paper";
+import React from 'react';
+import { Switch, SwitchProps } from 'react-native-paper';
 
 interface ICustomSwitchProps extends SwitchProps {}
 

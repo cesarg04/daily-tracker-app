@@ -7,7 +7,7 @@ import {
   StyleProp,
   StyleSheet,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
 interface IKeyboardAvoidingContainerProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ const KeyboardAvoidingContainer = ({
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
           showsHorizontalScrollIndicator={false}
@@ -41,6 +41,6 @@ export default KeyboardAvoidingContainer;
 const styles = StyleSheet.create({
   contentContainer: {
     padding: 20,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight! + 50 : 50,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 50 : 50,
   },
 });

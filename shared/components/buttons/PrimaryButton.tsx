@@ -1,23 +1,23 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Button as ButtonPaper, ButtonProps } from "react-native-paper";
-import theme from "@/shared/theme/theme";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Button as ButtonPaper, ButtonProps } from 'react-native-paper';
+import theme from '@/shared/theme/theme';
 
 interface IButtonProps extends ButtonProps {}
 
 const PrimaryButton = (props: IButtonProps) => {
   const config: IButtonProps = {
     ...props,
-    mode: "contained",
+    mode: 'contained',
     style: styles.button,
     labelStyle: {
-      fontWeight: "600",
+      fontWeight: '600',
       fontSize: 22,
-      alignItems: "center",
+      alignItems: 'center',
     },
     contentStyle: {
-      height: '100%'
-    }
+      height: '100%',
+    },
   };
 
   return <ButtonPaper {...config} />;
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.accent,
     height: 70,
     fontSize: 10,
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     borderRadius: 20,
-    padding: 0
+    padding: 0,
   },
 });

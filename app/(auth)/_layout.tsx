@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Stack } from "expo-router";
-import theme from "@/shared/theme/theme";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Stack } from 'expo-router';
+import theme from '@/shared/theme/theme';
 
 const AuthLayout = () => {
   return (
@@ -11,7 +11,7 @@ const AuthLayout = () => {
         contentStyle: {
           backgroundColor: 'white',
         },
-        header: () => <></>
+        header: () => <></>,
       }}
     >
       <Stack.Screen name="sign-in" />

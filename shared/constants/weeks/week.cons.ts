@@ -1,11 +1,11 @@
 export const C_WEEKS_OF_YEAR = {
-  MONDAY: { label: "LUN", value: "01" },
-  TUESDAY: { label: "MAR", value: "02" },
-  WEDNESDAY: { label: "MIÉ", value: "03" },
-  THURSDAY: { label: "JUE", value: "04" },
-  FRIDAY: { label: "VIE", value: "05" },
-  SATURDAY: { label: "SÁB", value: "06" },
-  SUNDAY: { label: "DOM", value: "07" },
+  MONDAY: { label: 'LUN', value: '01' },
+  TUESDAY: { label: 'MAR', value: '02' },
+  WEDNESDAY: { label: 'MIÉ', value: '03' },
+  THURSDAY: { label: 'JUE', value: '04' },
+  FRIDAY: { label: 'VIE', value: '05' },
+  SATURDAY: { label: 'SÁB', value: '06' },
+  SUNDAY: { label: 'DOM', value: '07' },
 };
 
 export const A_WEEKS_OF_YEAR = Object.values(C_WEEKS_OF_YEAR);

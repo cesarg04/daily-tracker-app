@@ -1,12 +1,12 @@
-import theme from "@/shared/theme/theme";
-import { Stack } from "expo-router";
-import { Provider as PaperProvider } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useReactQueryDevTools } from "@dev-plugins/react-query";
-import ModalContext from "@/shared/contexts/modal/ModalContext";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import "@/shared/components/sheet/Sheets";
+import theme from '@/shared/theme/theme';
+import { Stack } from 'expo-router';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import ModalContext from '@/shared/contexts/modal/ModalContext';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import '@/shared/components/sheet/Sheets';
 // import {
 //   useFonts,
 //   MPLUSRounded1c_100Thin,
@@ -17,23 +17,22 @@ import "@/shared/components/sheet/Sheets";
 //   MPLUSRounded1c_800ExtraBold,
 //   MPLUSRounded1c_900Black,
 // } from "@expo-google-fonts/m-plus-rounded-1c";
-import { useEffect } from "react";
-import * as SplashScreen from "expo-splash-screen";
-import { SheetProvider } from "react-native-actions-sheet";
+import { useEffect } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import { SheetProvider } from 'react-native-actions-sheet';
 // import {  useFonts, Inter_900Black, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import {
   useFonts,
   Asul_400Regular,
   Asul_700Bold,
-} from "@expo-google-fonts/asul";
-import { StatusBar } from "react-native";
+} from '@expo-google-fonts/asul';
+import { StatusBar } from 'react-native';
 // import { StatusBar } from 'expo-status-bar';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importa la configuración de idioma español
 
 // Establece el idioma a español
 dayjs.locale('es');
-
 
 const queryClient = new QueryClient();
 
@@ -59,7 +58,7 @@ export default function RootLayout() {
         <StatusBar
           backgroundColor={theme.colors.primary}
           hidden={false}
-          barStyle={"default"}
+          barStyle={'default'}
         />
         <PaperProvider
           theme={theme}

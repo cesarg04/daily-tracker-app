@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 import Snackbar, {
   ICustomSnackBarProps,
-} from "../components/snackbar/snackbar"; // Importa el componente Snackbar
-import { ISnackBarRef } from "../contexts/modal/modal-context.types";
-import useModal from "./useModal";
+} from '../components/snackbar/snackbar'; // Importa el componente Snackbar
+import { ISnackBarRef } from '../contexts/modal/modal-context.types';
+import useModal from './useModal';
 
 interface IUseSnackbarSettins extends ISnackBarRef {}
 

@@ -1,41 +1,43 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   registerFormDefaultValues,
   registerFormSchema,
   TRegisterFormType,
-} from "@/public/modules/register/util/register-schema.util";
-import { yupResolver } from "@hookform/resolvers/yup";
-import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
-import FormLabel from "@/shared/components/form/form-label/FormLabel";
-import TextField from "@/shared/components/form/form-text-fields/TextField";
-import FormError from "@/shared/components/form/form-error/FormError";
-import { useRouter } from "expo-router";
-import { Button } from "react-native-paper";
-import theme from "@/shared/theme/theme";
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import { supabase } from "@/shared/lib/supabase";
-import Logo from "@/assets/images/logo/logo-app.svg";
-import FormControl from "@/shared/components/form/form-control/FormControl";
-import { registerAdapter } from "@/public/modules/register/adapters/register.adapter";
-import useAuthStore from "@/shared/store/auth/auth.store";
+} from '@/public/modules/register/util/register-schema.util';
+import { yupResolver } from '@hookform/resolvers/yup';
+import KeyboardAvoidingContainer from '@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer';
+import FormLabel from '@/shared/components/form/form-label/FormLabel';
+import TextField from '@/shared/components/form/form-text-fields/TextField';
+import FormError from '@/shared/components/form/form-error/FormError';
+import { useRouter } from 'expo-router';
+import { Button } from 'react-native-paper';
+import theme from '@/shared/theme/theme';
+import PrimaryButton from '@/shared/components/buttons/PrimaryButton';
+import { supabase } from '@/shared/lib/supabase';
+import Logo from '@/assets/images/logo/logo-app.svg';
+import FormControl from '@/shared/components/form/form-control/FormControl';
+import { registerAdapter } from '@/public/modules/register/adapters/register.adapter';
+import useAuthStore from '@/shared/store/auth/auth.store';
 
 const Register = () => {
   const router = useRouter();
-  const { login } = useAuthStore()
+  const { login } = useAuthStore();
   const formConfig = useForm<TRegisterFormType>({
     defaultValues: registerFormDefaultValues,
     resolver: yupResolver(registerFormSchema),
   });
-  
 
   const onSubmit = async (values: TRegisterFormType) => {
-    const parsedData = registerAdapter(values)
-    const { data: { session }, error } = await supabase.auth.signUp(parsedData);
+    const parsedData = registerAdapter(values);
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp(parsedData);
     if (session) {
       login(session?.user, session.access_token);
-      router.replace('/home')
+      router.replace('/home');
     }
   };
 
@@ -85,7 +87,7 @@ const Register = () => {
           </PrimaryButton>
 
           <View style={{ marginTop: 20 }}>
-            <Button onPress={() => router.replace("/sign-in")}>
+            <Button onPress={() => router.replace('/sign-in')}>
               Iniciar sesion
             </Button>
           </View>
@@ -100,24 +102,24 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     gap: 5,
     marginBottom: 100,
   },
   containerTitle: {
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
   },
   title: {
     fontSize: 50,
     color: theme.colors.primary,
-    textAlign: "center",
-    fontWeight: "bold",
+    textAlign: 'center',
+    fontWeight: 'bold',
     marginBottom: 10,
   },
 });

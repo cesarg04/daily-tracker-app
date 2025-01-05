@@ -4,24 +4,24 @@ import {
   Text,
   useWindowDimensions,
   View,
-} from "react-native";
-import React, { useState } from "react";
-import { IPureData } from "@/shared/services/incomes/adapters/get-incomes.adapter";
-import TreansactionItems from "./TreansactionItems";
-import { useSearch } from "@/shared/hooks/useSearch";
-import { IconButton } from "react-native-paper";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import SearchField from "../field/SearchField";
-import Box from "../box/Box";
+} from 'react-native';
+import React, { useState } from 'react';
+import { IPureData } from '@/shared/services/incomes/adapters/get-incomes.adapter';
+import TreansactionItems from './TreansactionItems';
+import { useSearch } from '@/shared/hooks/useSearch';
+import { IconButton } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import SearchField from '../field/SearchField';
+import Box from '../box/Box';
 
 interface ITransactionsProps {
   data: IPureData[];
 }
 
 const Transactions = (props: ITransactionsProps) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [isSearchMode, setisSearchMode] = useState(false);
-  const data = useSearch(props.data, ["amount", "description", "id"], search);
+  const data = useSearch(props.data, ['amount', 'description', 'id'], search);
   const dimentions = useWindowDimensions();
 
   return (
@@ -58,19 +58,19 @@ const styles = StyleSheet.create({
   conteiner: {
     // minHeight: 300,
     borderRadius: 20,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     padding: 20,
     borderWidth: 2,
     paddingTop: 10,
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   headerContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

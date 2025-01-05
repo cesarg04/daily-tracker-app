@@ -1,21 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
-import { Button, ButtonProps } from "react-native-paper";
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, ButtonProps } from 'react-native-paper';
 
 interface IBackButtonProps extends ButtonProps {
   width?: string | number;
   isSelected?: boolean;
 }
-interface IConfigProps extends Omit<ButtonProps, "children"> {}
+interface IConfigProps extends Omit<ButtonProps, 'children'> {}
 
 const BlackButton = (props: IBackButtonProps) => {
   const { isSelected } = props;
 
   const config: IConfigProps = {
     ...props,
-    mode: isSelected ? "contained" : "outlined",
-    textColor: isSelected ? "white" : "black",
-    buttonColor: isSelected ? "black" : "white",
+    mode: isSelected ? 'contained' : 'outlined',
+    textColor: isSelected ? 'white' : 'black',
+    buttonColor: isSelected ? 'black' : 'white',
     style: [
       props.style,
       {
@@ -25,8 +25,8 @@ const BlackButton = (props: IBackButtonProps) => {
     ],
     labelStyle: {
       fontSize: 20,
-      height: "100%",
-      fontWeight: "bold",
+      height: '100%',
+      fontWeight: 'bold',
       paddingTop: 20,
     },
     contentStyle: {},

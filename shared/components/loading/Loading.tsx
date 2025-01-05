@@ -1,5 +1,5 @@
-import { View, Text, ActivityIndicator } from "react-native";
-import React from "react";
+import { View, Text, ActivityIndicator } from 'react-native';
+import React from 'react';
 
 interface ILoadingProps {
   loadingSize?: number;
@@ -10,9 +10,9 @@ const Loading = (props: ILoadingProps) => {
     <View
       style={{
         flex: 1,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <ActivityIndicator size={props.loadingSize} />

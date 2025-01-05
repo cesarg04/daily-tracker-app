@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Stack } from "expo-router";
-import { IconButton } from "react-native-paper";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Stack } from 'expo-router';
+import { IconButton } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const SettingsLayout = () => {
   return (
@@ -10,7 +10,7 @@ const SettingsLayout = () => {
       screenOptions={({ route, navigation }) => ({
         headerLeft: () => (
           <IconButton
-            style={{ position: "absolute" }}
+            style={{ position: 'absolute' }}
             onPress={() => navigation.goBack()}
             icon={() => <Ionicons name="chevron-back" size={40} />}
           />
@@ -22,13 +22,13 @@ const SettingsLayout = () => {
     >
       <Stack.Screen
         options={{
-          title: "Ajustes",
+          title: 'Ajustes',
         }}
         name="index"
       />
       <Stack.Screen
         options={{
-          title: "Editar perfil",
+          title: 'Editar perfil',
         }}
         name="edit-profile"
       />

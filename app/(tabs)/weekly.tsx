@@ -1,31 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
-import { incomesServices } from "@/shared/services/incomes/incomes.services";
-import Loading from "@/shared/components/loading/Loading";
-import { getIncomesAdapter } from "@/shared/services/incomes/adapters/get-incomes.adapter";
-import Totalncomes from "@/shared/components/incomes/Totalncomes";
-import Transactions from "@/shared/components/incomes/Transactions";
-import ErrorComponent from "@/shared/components/error/ErrorComponent";
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { incomesServices } from '@/shared/services/incomes/incomes.services';
+import Loading from '@/shared/components/loading/Loading';
+import { getIncomesAdapter } from '@/shared/services/incomes/adapters/get-incomes.adapter';
+import Totalncomes from '@/shared/components/incomes/Totalncomes';
+import Transactions from '@/shared/components/incomes/Transactions';
+import ErrorComponent from '@/shared/components/error/ErrorComponent';
 
 const Weekly = () => {
   const { useGetIncomesOfTheWeek } = incomesServices();
   const incomes = useGetIncomesOfTheWeek();
-  
-    useEffect(() => {
-    
-    }, [incomes])
+
+  useEffect(() => {}, []);
 
   if (incomes.isLoading) {
-    <Loading />;
+    return <Loading />;
   }
 
   if (incomes.error) {
-    return (
-      <ErrorComponent/>
-    )
+    return <ErrorComponent />;
   }
-  
-
 
   const adapted = getIncomesAdapter(incomes.data!);
   return (
@@ -47,8 +41,8 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: "space-between",
     padding: 20,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     gap: 20,
   },
 });

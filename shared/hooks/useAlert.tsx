@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import useModal from "./useModal";
+import useModal from './useModal';
 import CustomAlertTemplate, {
   ICustomAlertTemplateProps,
-} from "../components/alerts/CustomAlertTemplate";
+} from '../components/alerts/CustomAlertTemplate';
 
 const useAlert = () => {
   const { modal, onClose, onConfirm } = useModal();
@@ -20,7 +20,7 @@ const useAlert = () => {
       options: {
         style: {
           minHeight: 220,
-          backgroundColor: 'white'
+          backgroundColor: 'white',
         },
       },
     });
