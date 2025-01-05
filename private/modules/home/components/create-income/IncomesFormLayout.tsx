@@ -1,19 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { RefObject, useEffect } from "react";
-import { TCreateIncomeFormType } from "../../util/create-income-schema.util";
-import theme from "@/shared/theme/theme";
-import { ActionSheetRef } from "react-native-actions-sheet";
-import { FormProvider, useForm } from "react-hook-form";
-import TextField from "@/shared/components/form/form-text-fields/TextField";
-import FormError from "@/shared/components/form/form-error/FormError";
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import { IconButton } from "react-native-paper";
-import XIcon from "@/assets/icons/circle-x.svg";
-import {
-  createIncomeSchema,
-} from "../../util/create-income-schema.util";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FormControl from "@/shared/components/form/form-control/FormControl";
+import { View, Text, StyleSheet } from 'react-native';
+import React, { RefObject, useEffect } from 'react';
+import { TCreateIncomeFormType } from '../../util/create-income-schema.util';
+import theme from '@/shared/theme/theme';
+import { ActionSheetRef } from 'react-native-actions-sheet';
+import { FormProvider, useForm } from 'react-hook-form';
+import TextField from '@/shared/components/form/form-text-fields/TextField';
+import FormError from '@/shared/components/form/form-error/FormError';
+import PrimaryButton from '@/shared/components/buttons/PrimaryButton';
+import { IconButton } from 'react-native-paper';
+import XIcon from '@/assets/icons/circle-x.svg';
+import { createIncomeSchema } from '../../util/create-income-schema.util';
+import { yupResolver } from '@hookform/resolvers/yup';
+import FormControl from '@/shared/components/form/form-control/FormControl';
 
 interface IIncomesFormLayoutProps {
   initialValues: TCreateIncomeFormType;
@@ -26,13 +24,13 @@ const IncomesFormLayout = (props: IIncomesFormLayoutProps) => {
   const formConfig = useForm<TCreateIncomeFormType>({
     defaultValues: props.initialValues,
     resolver: yupResolver(createIncomeSchema),
-    mode: "onTouched",
+    mode: 'onTouched',
   });
 
   const handleSubmit = async (values: TCreateIncomeFormType) => {
     formConfig.reset();
-    await props.onSubmit(values)
-  }
+    await props.onSubmit(values);
+  };
 
   return (
     <View style={styles.container}>
@@ -78,23 +76,23 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   header: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontSize: 25,
     // fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: theme.colors.text,
   },
   containerForm: {
-    width: "100%",
+    width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
 });

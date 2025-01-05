@@ -1,10 +1,10 @@
-import { View, StyleSheet } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
-import { Button, Dialog, Text } from "react-native-paper";
-import { stylesMap } from "@/shared/constants/alerts/alerts-colors.const";
-import theme from "@/shared/theme/theme";
+import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Button, Dialog, Text } from 'react-native-paper';
+import { stylesMap } from '@/shared/constants/alerts/alerts-colors.const';
+import theme from '@/shared/theme/theme';
 export interface ICustomAlertTemplateProps {
-  type: "success" | "error" | "warning" | "info" | "default";
+  type: 'success' | 'error' | 'warning' | 'info' | 'default';
   message: string;
   declineBtnMessage?: string;
   confirmBtnMessage?: string;
@@ -17,13 +17,11 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
 
   const showButtonDecline = useMemo(() => {
     return (
-      props.type === "default" ||
-      props.type === "info" ||
-      props.type === "warning"
+      props.type === 'default' ||
+      props.type === 'info' ||
+      props.type === 'warning'
     );
   }, [props.type]);
-
-  
 
   useEffect(() => {}, []);
 
@@ -40,11 +38,11 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
           variant="titleLarge"
           style={{
             color: stylesType.iconColor,
-            textAlign: "center",
-            fontWeight: "bold",
+            textAlign: 'center',
+            fontWeight: 'bold',
           }}
         >
-         { props.message }
+          {props.message}
         </Text>
       </Dialog.Content>
 
@@ -56,16 +54,14 @@ const CustomAlertTemplate = (props: ICustomAlertTemplateProps) => {
             }
             onPress={() => props?.onClose?.()}
           >
-            {props.declineBtnMessage ? props.declineBtnMessage : "Cancel"}
+            {props.declineBtnMessage ? props.declineBtnMessage : 'Cancel'}
           </Button>
         )}
         <Button
-          textColor={
-            stylesType.iconColor
-          }
+          textColor={stylesType.iconColor}
           onPress={() => props.onConfirm?.()}
         >
-          {props.confirmBtnMessage ? props.confirmBtnMessage : "Ok"}
+          {props.confirmBtnMessage ? props.confirmBtnMessage : 'Ok'}
         </Button>
       </Dialog.Actions>
     </>
@@ -76,6 +72,6 @@ export default CustomAlertTemplate;
 
 const styles = StyleSheet.create({
   title: {
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

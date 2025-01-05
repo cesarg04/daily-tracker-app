@@ -1,9 +1,9 @@
-import { formatCurrency } from "@/shared/helpers/parse-money.helper";
-import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import dayjs from "dayjs";
-import "dayjs/locale/es";
+import { formatCurrency } from '@/shared/helpers/parse-money.helper';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
-dayjs.locale("es");
+dayjs.locale('es');
 
 export const getIncomesAdapter = (
   resp: PostgrestSingleResponse<
@@ -24,15 +24,15 @@ export const getIncomesAdapter = (
   );
   return {
     totalIncomes: formatCurrency(totalAmount ?? 0),
-    totalDates: dayjs().format("D MMMM YYYY"),
+    totalDates: dayjs().format('D MMMM YYYY'),
     pureData:
       resp?.data?.map((item) => ({
         amount: formatCurrency(item.amount),
-        date: item.date ?? "",
-        description: item.description ?? "",
-        id: item.id ?? "",
-        source: item.source ?? "",
-        user_id: item.user_id ?? "",
+        date: item.date ?? '',
+        description: item.description ?? '',
+        id: item.id ?? '',
+        source: item.source ?? '',
+        user_id: item.user_id ?? '',
       })) ?? [],
   };
 };
@@ -43,11 +43,11 @@ export interface IGetIncomesData {
   pureData: IPureData[];
 }
 
-export interface IPureData { 
-    amount: string;
-    description: string;
-    id: string;
-    user_id: string;
-    date: string;
-    source: string | null;
+export interface IPureData {
+  amount: string;
+  description: string;
+  id: string;
+  user_id: string;
+  date: string;
+  source: string | null;
 }

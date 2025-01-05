@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ReactNode } from 'react';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface IOptionsModal {
   style?: StyleProp<TextStyle>;
@@ -17,9 +17,9 @@ export interface IModalFunctionOptions extends IMetaRef {
 }
 
 export enum EModalEventType {
-  DISMISS = "dismiss",
-  CLOSE = "close",
-  CONFIRM = "confirm",
+  DISMISS = 'dismiss',
+  CLOSE = 'close',
+  CONFIRM = 'confirm',
 }
 
 export type ModalEventType =
@@ -33,9 +33,9 @@ export interface IEventModal {
 }
 
 export interface IModalReturn {
-  onClose: (value?: IEventModal["value"]) => void;
-  onDismiss: (value?: IEventModal["value"]) => void;
-  onConfirm: (value?: IEventModal["value"]) => void;
+  onClose: (value?: IEventModal['value']) => void;
+  onDismiss: (value?: IEventModal['value']) => void;
+  onConfirm: (value?: IEventModal['value']) => void;
   modal: (p: IModalFunctionOptions) => Promise<IEventModal>;
   snackBar: (p: ISnackBarRef) => void;
 }
@@ -44,16 +44,15 @@ export interface IModalContextProviderProps {
   children: React.ReactNode;
 }
 
-
 // SnackBar
 
 export interface ISnackBarRef {
   message: string;
-  type: "success" | "error" | "warning" | "info" | "default";
+  type: 'success' | 'error' | 'warning' | 'info' | 'default';
   options?: {
     duration?: number;
-    styles?: StyleProp<ViewStyle>,
+    styles?: StyleProp<ViewStyle>;
     actionLabel?: string;
-    onPress?: () => void; 
-  }
+    onPress?: () => void;
+  };
 }

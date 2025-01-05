@@ -1,6 +1,6 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import theme from "@/shared/theme/theme";
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import theme from '@/shared/theme/theme';
 
 const ErrorComponent = () => {
   return (
@@ -9,7 +9,7 @@ const ErrorComponent = () => {
         Ups! Ah ocurrido un error, intente mas tarde.
       </Text>
       <Image
-        source={require("@/assets/images/error/error.png")} // Ruta relativa al archivo
+        source={require('@/assets/images/error/error.png')} // Ruta relativa al archivo
         style={styles.image}
         resizeMode="contain"
       />
@@ -22,10 +22,10 @@ export default ErrorComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   image: {
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     color: theme.colors.primary,
   },
 });

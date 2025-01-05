@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useRef } from "react";
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
 import ActionSheet, {
   ActionSheetRef,
   SheetProps,
-} from "react-native-actions-sheet";
-import { incomesServices } from "@/shared/services/incomes/incomes.services";
-import Loading from "@/shared/components/loading/Loading";
-import { BorderStyles } from "@/shared/components/sheet/Sheets";
-import IncomesFormLayout from "./IncomesFormLayout";
-import { incomesPatchAdapter } from "@/shared/services/incomes/adapters/incomes-patch-income.adapter";
-import { TCreateIncomeFormType } from "../../util/create-income-schema.util";
-import ErrorComponent from "@/shared/components/error/ErrorComponent";
-import { ActivityIndicator } from "react-native-paper";
-import useSnackbar from "@/shared/hooks/useSnackbar";
+} from 'react-native-actions-sheet';
+import { incomesServices } from '@/shared/services/incomes/incomes.services';
+import Loading from '@/shared/components/loading/Loading';
+import { BorderStyles } from '@/shared/components/sheet/Sheets';
+import IncomesFormLayout from './IncomesFormLayout';
+import { incomesPatchAdapter } from '@/shared/services/incomes/adapters/incomes-patch-income.adapter';
+import { TCreateIncomeFormType } from '../../util/create-income-schema.util';
+import ErrorComponent from '@/shared/components/error/ErrorComponent';
+import { ActivityIndicator } from 'react-native-paper';
+import useSnackbar from '@/shared/hooks/useSnackbar';
 
-const UpdateIncomeSheet = (props: SheetProps<"edit-income-sheet">) => {
+const UpdateIncomeSheet = (props: SheetProps<'edit-income-sheet'>) => {
   const actionRef = useRef<ActionSheetRef>(null);
   const { useGetIncomeById, useUpdateIncomes } = incomesServices();
   const { snackBar } = useSnackbar();
@@ -27,16 +27,16 @@ const UpdateIncomeSheet = (props: SheetProps<"edit-income-sheet">) => {
     });
     if (status === 204) {
       snackBar({
-        message: "El gasto ha sido actualizado satsifactoriamente.",
-        type: "success",
+        message: 'El gasto ha sido actualizado satsifactoriamente.',
+        type: 'success',
       });
       actionRef.current?.hide();
     }
     if (error) {
       snackBar({
         message:
-          "Ha ocurido un error al actualizar el gasto, intente nuevamente.",
-        type: "error",
+          'Ha ocurido un error al actualizar el gasto, intente nuevamente.',
+        type: 'error',
       });
     }
   };

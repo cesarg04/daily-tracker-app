@@ -1,25 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useMemo } from "react";
-import { userServices } from "@/shared/services/user/user.services";
-import Loading from "@/shared/components/loading/Loading";
-import { Avatar, Button } from "react-native-paper";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import FormColorImagePicker from "@/shared/components/form/form-button-image-picker/FormColorImagePicker";
-import { FormProvider, useForm } from "react-hook-form";
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { userServices } from '@/shared/services/user/user.services';
+import Loading from '@/shared/components/loading/Loading';
+import { Avatar, Button } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import FormColorImagePicker from '@/shared/components/form/form-button-image-picker/FormColorImagePicker';
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   TUpdateProfileFormType,
   updateProfileFormDefaultValues,
   updateProfileSchema,
-} from "@/private/modules/settings/util/update-profile.schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FormControl from "@/shared/components/form/form-control/FormControl";
-import FormLabel from "@/shared/components/form/form-label/FormLabel";
-import TextField from "@/shared/components/form/form-text-fields/TextField";
-import FormError from "@/shared/components/form/form-error/FormError";
-import KeyboardAvoidingContainer from "@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer";
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import useAuthStore from "@/shared/store/auth/auth.store";
-import { patchAdapterUser } from "@/shared/services/user/patch-user.adapter";
+} from '@/private/modules/settings/util/update-profile.schema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import FormControl from '@/shared/components/form/form-control/FormControl';
+import FormLabel from '@/shared/components/form/form-label/FormLabel';
+import TextField from '@/shared/components/form/form-text-fields/TextField';
+import FormError from '@/shared/components/form/form-error/FormError';
+import KeyboardAvoidingContainer from '@/shared/components/keyboard-avoing-container/KeyboardAvoingContainer';
+import PrimaryButton from '@/shared/components/buttons/PrimaryButton';
+import useAuthStore from '@/shared/store/auth/auth.store';
+import { patchAdapterUser } from '@/shared/services/user/patch-user.adapter';
 
 const EditProfile = () => {
   const { useGetUser, useUpdateUser } = userServices();
@@ -39,13 +39,13 @@ const EditProfile = () => {
     defaultValues: adapted,
     resolver: yupResolver(updateProfileSchema),
   });
-  const avatar = formConfig.watch("avatar");
+  const avatar = formConfig.watch('avatar');
 
   const onSubmit = (values: TUpdateProfileFormType) => {};
 
-  const onInsert = async() => {
-      const { data, error } = await useUpdateUser.mutateAsync(avatar);
-  }
+  const onInsert = async () => {
+    const { data, error } = await useUpdateUser.mutateAsync(avatar);
+  };
 
   if (currentUser.isLoading) {
     return <Loading />;
@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   avatarContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 10,
   },
   avatar: {

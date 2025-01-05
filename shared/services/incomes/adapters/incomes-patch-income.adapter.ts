@@ -1,5 +1,5 @@
-import { TCreateIncomeFormType } from "@/private/modules/home/util/create-income-schema.util";
-import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { TCreateIncomeFormType } from '@/private/modules/home/util/create-income-schema.util';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 export const incomesPatchAdapter = (
   resp: PostgrestSingleResponse<{
@@ -13,7 +13,7 @@ export const incomesPatchAdapter = (
   }>
 ): TCreateIncomeFormType => {
   return {
-    amount: resp.data?.amount.toString() ?? "",
-    description: resp.data?.description ?? "",
+    amount: resp.data?.amount.toString() ?? '',
+    description: resp.data?.description ?? '',
   };
 };

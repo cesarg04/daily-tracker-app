@@ -5,7 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   EModalEventType,
   IEventModal,
@@ -14,13 +14,13 @@ import {
   IModalFunctionOptions,
   IModalReturn,
   ISnackBarRef,
-} from "./modal-context.types";
-import React from "react";
-import { Dialog, IconButton, Modal, Portal, Text } from "react-native-paper";
-import { Animated, StyleSheet, View } from "react-native";
-import Customsnackbar from "@/shared/components/snackbar/snackbar";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import theme from "@/shared/theme/theme";
+} from './modal-context.types';
+import React from 'react';
+import { Dialog, IconButton, Modal, Portal, Text } from 'react-native-paper';
+import { Animated, StyleSheet, View } from 'react-native';
+import Customsnackbar from '@/shared/components/snackbar/snackbar';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import theme from '@/shared/theme/theme';
 
 export const ModalsContext = createContext<IModalReturn | undefined>(undefined);
 
@@ -77,19 +77,19 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
     });
   }, []);
 
-  const onClose = useCallback((value?: IEventModal["value"]) => {
+  const onClose = useCallback((value?: IEventModal['value']) => {
     setIsOpen(false);
     if (promiseRef.current)
       promiseRef.current({ type: EModalEventType.CLOSE, value });
   }, []);
 
-  const onDismiss = useCallback((value?: IEventModal["value"]) => {
+  const onDismiss = useCallback((value?: IEventModal['value']) => {
     setIsOpen(false);
     if (promiseRef.current)
       promiseRef.current({ type: EModalEventType.DISMISS, value });
   }, []);
 
-  const onConfirm = useCallback((value?: IEventModal["value"]) => {
+  const onConfirm = useCallback((value?: IEventModal['value']) => {
     setIsOpen(false);
     if (promiseRef.current)
       promiseRef.current({ type: EModalEventType.CONFIRM, value });
@@ -130,12 +130,12 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
           <Customsnackbar
             onDismiss={onCLoseSnack}
             visible={snackBarIsOpen}
-            type={snackbarRef.current?.type ?? "info"}
+            type={snackbarRef.current?.type ?? 'info'}
             duration={snackbarRef.current?.options?.duration}
             action={{
-              label: snackbarRef.current?.options?.actionLabel ?? "Cerrar",
+              label: snackbarRef.current?.options?.actionLabel ?? 'Cerrar',
               onPress: snackbarRef.current?.options?.onPress,
-              textColor: "white",
+              textColor: 'white',
             }}
             message={snackbarRef.current?.message}
           />
@@ -148,12 +148,12 @@ const ModalContextProvider = ({ children }: IModalContextProviderProps) => {
               style={{
                 opacity: opacityAnim,
                 transform: [{ scale: scaleAnim }],
-                justifyContent: "center",
-                alignItems: "center",
+                justifyContent: 'center',
+                alignItems: 'center',
                 flex: 1,
               }}
             >
-              <Dialog style={{ backgroundColor: "white" }} visible={isOpen}>
+              <Dialog style={{ backgroundColor: 'white' }} visible={isOpen}>
                 {metaRef.current?.template &&
                   React.cloneElement(
                     metaRef.current?.template as ReactElement,
@@ -172,18 +172,18 @@ export default ModalContextProvider;
 
 const styles = StyleSheet.create({
   modalStyles: {
-    backgroundColor: "#312B5C",
-    borderColor: "#6B5DB0",
+    backgroundColor: '#312B5C',
+    borderColor: '#6B5DB0',
     borderWidth: 1,
     padding: 16,
     marginHorizontal: 20,
     borderRadius: 40,
   },
   wrap: {
-    width: "90%",
-    display: "flex",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
+    width: '90%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 });
