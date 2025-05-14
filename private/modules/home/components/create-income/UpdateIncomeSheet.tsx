@@ -44,7 +44,6 @@ const UpdateIncomeSheet = (props: SheetProps<'edit-income-sheet'>) => {
   const adapted = incomes.data ? incomesPatchAdapter(incomes.data) : undefined;
 
   useEffect(() => {
-    // actionRef.current?.show();
   }, []);
 
   return (

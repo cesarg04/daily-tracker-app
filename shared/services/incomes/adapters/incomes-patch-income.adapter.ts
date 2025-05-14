@@ -10,10 +10,12 @@ export const incomesPatchAdapter = (
     id: string;
     source: string | null;
     user_id: string | null;
+    type: string | null;
   }>
 ): TCreateIncomeFormType => {
   return {
     amount: resp.data?.amount.toString() ?? '',
     description: resp.data?.description ?? '',
+    type: resp.data?.type ?? '',
   };
 };

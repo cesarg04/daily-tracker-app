@@ -46,7 +46,6 @@ const Transactions = (props: ITransactionsProps) => {
         keyExtractor={({ id }) => id}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        // ListEmptyComponent={() =>  }
       />
     </Box>
   );
@@ -56,7 +55,6 @@ export default Transactions;
 
 const styles = StyleSheet.create({
   conteiner: {
-    // minHeight: 300,
     borderRadius: 20,
     borderColor: '#ccc',
     padding: 20,

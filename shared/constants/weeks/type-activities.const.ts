@@ -1,0 +1,13 @@
+export const C_TYPE_ACTIVITIES = {
+  EXPENDITURE: { label: 'Gasto', value: 'expenditure' },
+  INCOME: { label: 'Ingreso', value: 'income' },
+};
+
+export const A_TYPE_ACTIVITIES = Object.values(C_TYPE_ACTIVITIES);
+
+export const O_TYPE_ACTIVITIES_OBJ = {
+  [C_TYPE_ACTIVITIES.EXPENDITURE.label]: C_TYPE_ACTIVITIES.EXPENDITURE,
+  [C_TYPE_ACTIVITIES.EXPENDITURE.value]: C_TYPE_ACTIVITIES.EXPENDITURE,
+  [C_TYPE_ACTIVITIES.INCOME.label]: C_TYPE_ACTIVITIES.INCOME,
+  [C_TYPE_ACTIVITIES.INCOME.value]: C_TYPE_ACTIVITIES.INCOME,
+};

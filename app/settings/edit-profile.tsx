@@ -56,15 +56,6 @@ const EditProfile = () => {
       <KeyboardAvoidingContainer>
         <View style={styles.container}>
           <View style={styles.avatarContainer}>
-            {/* {avatar.length > 0 ? (
-              <Avatar.Image size={100} source={{ uri: avatar.uri }} />
-            ) : (
-              <Avatar.Text
-                style={{ backgroundColor: "#ccc" }}
-                label={initialLetter ?? ""}
-                size={100}
-              />
-            )} */}
             <FormControl name="avatar">
               <FormColorImagePicker />
             </FormControl>
