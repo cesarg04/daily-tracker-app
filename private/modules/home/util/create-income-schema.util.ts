@@ -5,6 +5,7 @@ export const createIncomeSchema = Yup.object().shape({
   description: Yup.string()
     .required('La descripcion del ingreso es requerida')
     .default(''),
+  type: Yup.string().required('El tipo de ingreso es requerido').default(''),
 });
 
 export type TCreateIncomeFormType = Yup.InferType<typeof createIncomeSchema>;

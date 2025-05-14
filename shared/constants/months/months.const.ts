@@ -119,5 +119,5 @@ export const O_MONTHS_YEARS_OBJ = {
   [C_MONTHS_OF_YEARS.DECEMBER.value]: C_MONTHS_OF_YEARS.DECEMBER,
 };
 
-export type TMonthValue =
+export type     TMonthValue =
   (typeof C_MONTHS_OF_YEARS)[keyof typeof C_MONTHS_OF_YEARS]['value'];

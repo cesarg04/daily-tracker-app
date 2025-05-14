@@ -1,9 +1,48 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-native/all",
-    "prettier"
-  ],
-  "plugins": ["react", "react-native"]
-}
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-native/all",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["react", "react-native", "unused-imports", "prettier"],
+    "rules": {
+      // Enable Prettier integration
+      "prettier/prettier": "error",
+  
+      // Remove unused imports automatically
+      "unused-imports/no-unused-imports": "error",
+  
+      // Handle unused variables (allow `_` as unused)
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "varsIgnorePattern": "^_",
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ],
+  
+      // React-specific rules
+      "react/react-in-jsx-scope": "off", // Not needed in React 17+
+      "react/prop-types": "off", // Disable if not using PropTypes
+      "react-native/no-inline-styles": "off", // Optional: Inline styles in React Native
+      "react-native/no-raw-text": [
+        "warn",
+        {
+          "skip": ["CustomText"]
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect" // Automatically detect React version
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    }
+  }

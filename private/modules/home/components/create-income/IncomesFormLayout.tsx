@@ -12,6 +12,9 @@ import XIcon from '@/assets/icons/circle-x.svg';
 import { createIncomeSchema } from '../../util/create-income-schema.util';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormControl from '@/shared/components/form/form-control/FormControl';
+import Formcheck from '@/shared/components/form/form-check/Formcheck';
+import { A_TYPE_ACTIVITIES } from '@/shared/constants/weeks/type-activities.const';
+import FormLabel from '@/shared/components/form/form-label/FormLabel';
 
 interface IIncomesFormLayoutProps {
   initialValues: TCreateIncomeFormType;
@@ -35,7 +38,7 @@ const IncomesFormLayout = (props: IIncomesFormLayoutProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Agregar Ingreso</Text>
+        <Text style={styles.title}>Agregar actividad</Text>
         <IconButton
           icon={() => (
             <XIcon width={30} height={30} color={theme.colors.text} />
@@ -45,6 +48,10 @@ const IncomesFormLayout = (props: IIncomesFormLayoutProps) => {
       </View>
       <View style={styles.containerForm}>
         <FormProvider {...formConfig}>
+          <FormControl name="type">
+            <Formcheck items={A_TYPE_ACTIVITIES} itemsFlex />
+            <FormError />
+          </FormControl>
           <FormControl name="amount">
             <TextField mask="money" placeholder="Monto" />
             <FormError />
@@ -71,7 +78,6 @@ export default IncomesFormLayout;
 
 const styles = StyleSheet.create({
   container: {
-    // height: 300,
     paddingHorizontal: 20,
     paddingVertical: 5,
   },
@@ -84,7 +90,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    // fontFamily: Platform.OS === "ios" ? "Asul_700Bold" : undefined,
     fontWeight: 'bold',
     color: theme.colors.text,
   },

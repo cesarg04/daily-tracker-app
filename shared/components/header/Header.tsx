@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingTop: 30,
   },
   title: {
     color: 'white',
@@ -49,6 +48,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    // fontFamily: 'Inter_900Black'
   },
 });
